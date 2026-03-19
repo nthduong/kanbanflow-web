@@ -4,16 +4,16 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import ArchiveIcon from "@mui/icons-material/Archive";
 import { useColorScheme } from "@mui/material/styles";
+import Container from "@mui/material/Container";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import NightsStayIcon from "@mui/icons-material/NightsStay";
 
 function SelectMode() {
   const { mode, setMode } = useColorScheme();
 
   const handleChange = (event) => {
     setMode(event.target.value);
-    console.log(event.target.value);
-    
   };
   return (
     <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
@@ -25,37 +25,74 @@ function SelectMode() {
         label="Mode"
         onChange={handleChange}
       >
-        <MenuItem value="light">Light</MenuItem>
-        <MenuItem value="dark">Dark</MenuItem>
-        <MenuItem value="system">System</MenuItem>
+        <MenuItem value="light">
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+            }}
+          >
+            <LightModeIcon fontSize="small" />
+            Light
+          </Box>
+        </MenuItem>
+        <MenuItem value="dark">
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+            }}
+          >
+            <NightsStayIcon fontSize="small" />
+            dark
+          </Box>
+        </MenuItem>
       </Select>
     </FormControl>
-  );
-}
-
-function ModeToggle() {
-  const { mode, setMode } = useColorScheme();
-  return (
-    <Button
-      onClick={() => {
-        setMode(mode === "light" ? "dark" : "light");
-      }}
-    >
-      {mode === "light" ? "Turn dark" : "Turn light"}
-    </Button>
   );
 }
 
 function App() {
   return (
     <>
-      <SelectMode />
-      <ModeToggle />
-      <div>Duong</div>
-      <Button variant="text">Text</Button>
-      <Button variant="contained">Contained</Button>
-      <Button variant="outlined">Outlined</Button>
-      <ArchiveIcon />
+      <Container disableGutters maxWidth={false} sx={{ height: "100vh" }}>
+        <Box
+          sx={{
+            backgroundColor: "primary.light",
+            height: (theme) => theme.kanban.appBarHeight,
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <SelectMode />
+        </Box>
+        <Box
+          sx={{
+            backgroundColor: "primary.dark",
+            height: (theme) => theme.kanban.boardBarHeight,
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          Board Bar
+        </Box>
+        <Box
+          sx={{
+            backgroundColor: "primary.light",
+            height: (theme) =>
+              `calc( 100vh - ${theme.kanban.appBarHeight} - ${theme.kanban.boardBarHeight})`,
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          content
+        </Box>
+      </Container>
     </>
   );
 }

@@ -1,6 +1,11 @@
 import { experimental_extendTheme as extendTheme } from "@mui/material/styles";
 
 const theme = extendTheme({
+  kanban: {
+    appBarHeight: "60px",
+    boardBarHeight: "70px",
+  },
+
   colorSchemes: {
     light: {
       palette: {
@@ -12,7 +17,7 @@ const theme = extendTheme({
     dark: {
       palette: {
         primary: {
-          main: "#fff",
+          main: "#151715",
         },
       },
     },
