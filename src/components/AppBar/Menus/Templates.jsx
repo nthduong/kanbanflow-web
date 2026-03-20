@@ -42,30 +42,30 @@ function Template() {
           "aria-labelledby": "basic-button-template",
         }}
       >
-        <MenuItem>
+        <MenuItem onClick={handleClose}>
           <ListItemText inset>Single</ListItemText>
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={handleClose}>
           <ListItemText inset>1.15</ListItemText>
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={handleClose}>
           <ListItemText inset>Double</ListItemText>
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <Check />
           </ListItemIcon>
           Custom: 1.2
         </MenuItem>
         <Divider />
-        <MenuItem>
+        <MenuItem onClick={handleClose}>
           <ListItemText>Add space before paragraph</ListItemText>
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={handleClose}>
           <ListItemText>Add space after paragraph</ListItemText>
         </MenuItem>
         <Divider />
-        <MenuItem>
+        <MenuItem onClick={handleClose}>
           <ListItemText>Custom spacing...</ListItemText>
         </MenuItem>
       </Menu>

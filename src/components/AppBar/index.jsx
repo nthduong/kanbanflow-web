@@ -1,4 +1,3 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
 import ModeSelect from "~/components/ModeSelect";
 import AppsIcon from "@mui/icons-material/Apps";
@@ -59,15 +58,20 @@ function AppBar() {
           label="Search..."
           type="search"
           size="small"
+          sx={{ color: "primary.main" }}
         />
         <ModeSelect />
         <Tooltip title="Notifications">
-          <Badge color="secondary" variant="dot" sx={{ cursor: "pointer" }}>
+          <Badge
+            color="secondary"
+            variant="dot"
+            sx={{ cursor: "pointer", color: "primary.main" }}
+          >
             <NotificationsIcon />
           </Badge>
         </Tooltip>
         <Tooltip title="help">
-          <HelpIcon />
+          <HelpIcon sx={{ cursor: "pointer", color: "primary.main" }} />
         </Tooltip>
         <Profile />
       </Box>

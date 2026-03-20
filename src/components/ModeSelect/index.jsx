@@ -29,9 +29,10 @@ function ModeSelect() {
               display: "flex",
               alignItems: "center",
               gap: 1,
+              color: "primary.main",
             }}
           >
-            <LightModeIcon fontSize="small" />
+            <LightModeIcon fontSize="small" sx={{ color: "primary.main" }} />
             Light
           </Box>
         </MenuItem>

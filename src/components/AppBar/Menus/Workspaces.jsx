@@ -46,7 +46,7 @@ function WorkSpaces() {
           "aria-labelledby": "basic-button-workspaces",
         }}
       >
-        <MenuItem>
+        <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <ContentCut fontSize="small" />
           </ListItemIcon>
@@ -55,7 +55,7 @@ function WorkSpaces() {
             ⌘X
           </Typography>
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <ContentCopy fontSize="small" />
           </ListItemIcon>
@@ -64,7 +64,7 @@ function WorkSpaces() {
             ⌘C
           </Typography>
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <ContentPaste fontSize="small" />
           </ListItemIcon>
@@ -74,7 +74,7 @@ function WorkSpaces() {
           </Typography>
         </MenuItem>
         <Divider />
-        <MenuItem>
+        <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <Cloud fontSize="small" />
           </ListItemIcon>

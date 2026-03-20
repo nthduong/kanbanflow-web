@@ -1,3 +1,5 @@
+import { BorderAll, BorderColor } from "@mui/icons-material";
+import { colors } from "@mui/material";
 import { experimental_extendTheme as extendTheme } from "@mui/material/styles";
 
 const theme = extendTheme({
@@ -18,6 +20,45 @@ const theme = extendTheme({
       palette: {
         primary: {
           main: "#3e473e",
+        },
+      },
+    },
+  },
+
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: "none",
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: ({ theme }) => {
+          return {
+            color: theme.palette.primary.main,
+            fontSize: "0.875rem",
+          };
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: ({ theme }) => {
+          return {
+            color: theme.palette.primary.main,
+            fontSize: "0.875rem",
+            ".MuiOutlinedInput-notchedOutline": {
+              borderColor: theme.palette.primary.main,
+            },
+            "&:hover": {
+              ".MuiOutlinedInput-notchedOutline": {
+                borderColor: theme.palette.primary.main,
+                borderWidth: "2px",
+              },
+            },
+          };
         },
       },
     },
