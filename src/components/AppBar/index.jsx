@@ -13,6 +13,7 @@ import Badge from "@mui/material/Badge";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import Tooltip from "@mui/material/Tooltip";
 import HelpIcon from "@mui/icons-material/Help";
+import AddIcon from "@mui/icons-material/Add";
 
 function AppBar() {
   return (
@@ -24,6 +25,7 @@ function AppBar() {
         alignItems: "center",
         justifyContent: "space-between",
         padding: "0 15px",
+        gap: 2,
       }}
     >
       <Box
@@ -40,11 +42,16 @@ function AppBar() {
         >
           Kanban Flow
         </Typography>
-        <WorkSpaces />
-        <Recent />
-        <Starred />
-        <Templates />
-        <Button variant="outlined">Create</Button>
+
+        <Box sx={{ display: { xs: "none", md: "flex" } }}>
+          <WorkSpaces />
+          <Recent />
+          <Starred />
+          <Templates />
+        </Box>
+        <Button variant="outlined" startIcon={<AddIcon />}>
+          Create
+        </Button>
       </Box>
       <Box
         sx={{

@@ -31,7 +31,7 @@ function Recent() {
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
         >
-          <Avatar sx={{ width: 28, height: 28, fontSize: "12px" }}>M</Avatar>
+          <Avatar sx={{ width: 30, height: 30, fontSize: "14px" }}>M</Avatar>
         </IconButton>
       </Tooltip>
       <Menu
@@ -44,10 +44,10 @@ function Recent() {
         }}
       >
         <MenuItem onClick={handleClose}>
-          <Avatar sx={{ width: 28, height: 28, marginRight: "8px" }} /> Profile
+          <Avatar sx={{ width: 30, height: 30, marginRight: "8px" }} /> Profile
         </MenuItem>
         <MenuItem onClick={handleClose}>
-          <Avatar sx={{ width: 28, height: 28, marginRight: "8px" }} /> My
+          <Avatar sx={{ width: 30, height: 30, marginRight: "8px" }} /> My
           account
         </MenuItem>
         <Divider />

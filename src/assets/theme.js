@@ -5,7 +5,7 @@ import { experimental_extendTheme as extendTheme } from "@mui/material/styles";
 const theme = extendTheme({
   kanban: {
     appBarHeight: "60px",
-    boardBarHeight: "70px",
+    boardBarHeight: "60px",
   },
 
   colorSchemes: {
