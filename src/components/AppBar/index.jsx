@@ -33,7 +33,7 @@ function AppBar() {
         padding: "0 15px",
         gap: 2,
         backgroundColor: (theme) =>
-          theme.palette.mode === "light" ? "#718355" : "#222831",
+          theme.palette.mode === "light" ? "#718355" : "#1c1c1c",
       }}
     >
       <Box

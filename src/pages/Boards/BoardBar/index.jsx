@@ -30,7 +30,7 @@ function BoardBar() {
     <Box
       sx={{
         backgroundColor: (theme) =>
-          theme.palette.mode === "light" ? "#87986a" : "#393E46",
+          theme.palette.mode === "light" ? "#87986a" : "#242424",
         height: (theme) => theme.kanban.boardBarHeight,
         width: "100%",
         display: "flex",
@@ -39,7 +39,7 @@ function BoardBar() {
         padding: "0 15px",
         borderBottom: "2px solid",
         borderColor: (theme) =>
-          theme.palette.mode === "light" ? "#87986a" : "#222831",
+          theme.palette.mode === "light" ? "#87986a" : "#1c1c1c",
       }}
     >
       <Box sx={{ display: "flex", alignItems: "center" }}>
