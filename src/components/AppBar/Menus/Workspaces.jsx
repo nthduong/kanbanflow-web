@@ -23,10 +23,10 @@ function WorkSpaces() {
   };
 
   return (
-    <div>
+    <>
       <Button
         style={{
-          backgroundColor: "primary.main",
+          color: "#fff",
         }}
         id="basic-button-workspaces"
         aria-controls={open ? "basic-menu-workspaces" : undefined}
@@ -81,7 +81,7 @@ function WorkSpaces() {
           <ListItemText>Web Clipboard</ListItemText>
         </MenuItem>
       </Menu>
-    </div>
+    </>
   );
 }
 

@@ -21,7 +21,7 @@ function Recent() {
   };
 
   return (
-    <div>
+    <>
       <Tooltip title="Account settings">
         <IconButton
           onClick={handleClick}
@@ -70,7 +70,7 @@ function Recent() {
           Logout
         </MenuItem>
       </Menu>
-    </div>
+    </>
   );
 }
 

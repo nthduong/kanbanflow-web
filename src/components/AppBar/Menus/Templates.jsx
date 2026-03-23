@@ -19,10 +19,10 @@ function Template() {
   };
 
   return (
-    <div>
+    <>
       <Button
         style={{
-          backgroundColor: "primary.main",
+          color: "#fff",
         }}
         id="basic-button-template"
         aria-controls={open ? "basic-menu-template" : undefined}
@@ -69,7 +69,7 @@ function Template() {
           <ListItemText>Custom spacing...</ListItemText>
         </MenuItem>
       </Menu>
-    </div>
+    </>
   );
 }
 

@@ -19,10 +19,10 @@ function Recent() {
   };
 
   return (
-    <div>
+    <>
       <Button
         style={{
-          backgroundColor: "primary.main",
+          color: "#fff",
         }}
         id="basic-button-recent"
         aria-controls={open ? "basic-menu-recent" : undefined}
@@ -69,7 +69,7 @@ function Recent() {
           <ListItemText>Custom spacing...</ListItemText>
         </MenuItem>
       </Menu>
-    </div>
+    </>
   );
 }
 

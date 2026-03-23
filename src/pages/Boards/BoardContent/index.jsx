@@ -4,7 +4,8 @@ function BoardContent() {
   return (
     <Box
       sx={{
-        backgroundColor: "primary.light",
+        backgroundColor: (theme) =>
+          theme.palette.mode === "light" ? "#e9f5db" : "#393E46",
         height: (theme) =>
           `calc( 100vh - ${theme.kanban.appBarHeight} - ${theme.kanban.boardBarHeight})`,
         width: "100%",

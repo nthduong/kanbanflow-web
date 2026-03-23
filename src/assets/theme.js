@@ -9,20 +9,20 @@ const theme = extendTheme({
   },
 
   colorSchemes: {
-    light: {
-      palette: {
-        primary: {
-          main: "#86a9f4",
-        },
-      },
-    },
-    dark: {
-      palette: {
-        primary: {
-          main: "#3e473e",
-        },
-      },
-    },
+    // light: {
+    //   palette: {
+    //     primary: {
+    //       main: "#86a9f4",
+    //     },
+    //   },
+    // },
+    // dark: {
+    //   palette: {
+    //     primary: {
+    //       main: "#3e473e",
+    //     },
+    //   },
+    // },
   },
 
   components: {
@@ -37,7 +37,7 @@ const theme = extendTheme({
       styleOverrides: {
         root: ({ theme }) => {
           return {
-            color: theme.palette.primary.main,
+            // color: theme.palette.primary.main,
             fontSize: "0.875rem",
           };
         },
@@ -47,14 +47,14 @@ const theme = extendTheme({
       styleOverrides: {
         root: ({ theme }) => {
           return {
-            color: theme.palette.primary.main,
+            // color: theme.palette.primary.main,
             fontSize: "0.875rem",
             ".MuiOutlinedInput-notchedOutline": {
-              borderColor: theme.palette.primary.main,
+              // borderColor: theme.palette.primary.main,
             },
             "&:hover": {
               ".MuiOutlinedInput-notchedOutline": {
-                borderColor: theme.palette.primary.main,
+                // borderColor: theme.palette.primary.main,
                 borderWidth: "2px",
               },
             },

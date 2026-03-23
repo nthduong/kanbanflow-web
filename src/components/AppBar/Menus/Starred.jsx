@@ -19,10 +19,10 @@ function Starred() {
   };
 
   return (
-    <div>
+    <>
       <Button
         style={{
-          backgroundColor: "primary.main",
+          color: "#fff",
         }}
         id="basic-button-starred"
         aria-controls={open ? "basic-menu-starred" : undefined}
@@ -69,7 +69,7 @@ function Starred() {
           <ListItemText>Custom spacing...</ListItemText>
         </MenuItem>
       </Menu>
-    </div>
+    </>
   );
 }
 
