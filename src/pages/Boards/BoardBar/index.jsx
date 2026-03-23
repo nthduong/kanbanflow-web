@@ -80,6 +80,7 @@ function BoardBar() {
           sx={{
             color: "#fff",
             borderColor: "#fff",
+            "&:hover": { borderColor: "#fff" },
           }}
           variant="outlined"
           startIcon={<PersonAddIcon />}
