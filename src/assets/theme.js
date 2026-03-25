@@ -41,6 +41,7 @@ const theme = extendTheme({
       styleOverrides: {
         root: {
           textTransform: "none",
+          borderRadius: "10px",
         },
       },
     },
@@ -61,11 +62,23 @@ const theme = extendTheme({
         },
       },
     },
+    MuiMenu: {
+      styleOverrides: {
+        paper: {
+          borderRadius: "10px",
+        },
+        list: {
+          borderRadius: "10px",
+        },
+      },
+    },
     MuiOutlinedInput: {
       styleOverrides: {
         root: ({ theme }) => {
           return {
             // color: theme.palette.primary.main,
+            borderRadius: "10px",
+
             fontSize: "0.875rem",
             ".MuiOutlinedInput-notchedOutline": {
               // borderColor: theme.palette.primary.main,

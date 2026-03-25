@@ -12,8 +12,12 @@ function Card() {
   return (
     <CardMui
       sx={{
-        borderRadius: "8px",
+        borderRadius: "10px",
         flexShrink: "0",
+        backgroundColor: (theme) =>
+          theme.palette.mode === "light" ? "#fff" : "#1c1c1c",
+        // boxShadow: "0 1px 1px rgba(0,0,0,0.2)",
+        boxShadow: "0px 1px 1px #1E1F2140, 0px 0px 1px #1E1F214F",
       }}
     >
       <CardMedia

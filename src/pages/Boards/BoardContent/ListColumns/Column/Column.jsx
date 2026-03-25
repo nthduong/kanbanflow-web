@@ -138,7 +138,7 @@ function Column() {
           height: (theme) => theme.kanban.cardFooterHeight,
         }}
       >
-        <Button startIcon={<AddCardIcon />}>Add new card</Button>
+        <Button startIcon={<AddCardIcon />} sx={{ color: "#fff"}}>Add new card</Button>
         <Tooltip title="Drag to card">
           <DragHandleIcon
             sx={{
