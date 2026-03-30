@@ -10,6 +10,7 @@ import AvatarGroup from "@mui/material/AvatarGroup";
 import Button from "@mui/material/Button";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { useTheme, useMediaQuery } from "@mui/material";
+import { capitalizeFirstLetter } from "~/utils/formatters";
 
 const MENU_STYLE = {
   color: "#fff",
@@ -23,7 +24,7 @@ const MENU_STYLE = {
   },
 };
 
-function BoardBar() {
+function BoardBar({ board }) {
   const theme = useTheme();
   const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
   return (
@@ -46,15 +47,15 @@ function BoardBar() {
         <Chip
           clickable
           icon={<DashboardIcon />}
-          label="ThaiDuong Board"
+          label={board?.title}
           sx={MENU_STYLE}
         />
-        {/* <Chip
+        <Chip
           clickable
           icon={<VpnLockIcon />}
-          label="Public/Private Workspace"
+          label={capitalizeFirstLetter(board?.type)}
           sx={{ ...MENU_STYLE, display: { xs: "none", md: "flex" } }}
-        /> */}
+        />
         <Chip
           clickable
           icon={<AddToDriveIcon />}

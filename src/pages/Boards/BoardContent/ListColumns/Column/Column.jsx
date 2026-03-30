@@ -18,7 +18,7 @@ import DragHandleIcon from "@mui/icons-material/DragHandle";
 import Tooltip from "@mui/material/Tooltip";
 import ListCards from "./ListCards/ListCards";
 
-function Column() {
+function Column({ title, column }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -59,10 +59,10 @@ function Column() {
           sx={{
             fontWeight: "500",
             cursor: "pointer",
-            fontSize: "1.2rem",
+            fontSize: "1rem",
           }}
         >
-          Title Column
+          {column?.title}
         </Typography>
 
         <KeyboardArrowDownIcon
@@ -126,7 +126,7 @@ function Column() {
       </Box>
 
       {/* Card Content */}
-      <ListCards />
+      <ListCards cards={column?.cards} />
 
       {/* Card Footer */}
       <Box
@@ -138,7 +138,9 @@ function Column() {
           height: (theme) => theme.kanban.cardFooterHeight,
         }}
       >
-        <Button startIcon={<AddCardIcon />} sx={{ color: "#fff"}}>Add new card</Button>
+        <Button startIcon={<AddCardIcon />} sx={{ color: "#fff" }}>
+          Add new card
+        </Button>
         <Tooltip title="Drag to card">
           <DragHandleIcon
             sx={{

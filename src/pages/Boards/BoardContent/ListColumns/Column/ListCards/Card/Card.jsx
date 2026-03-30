@@ -8,7 +8,15 @@ import GroupIcon from "@mui/icons-material/Group";
 import CommentIcon from "@mui/icons-material/Comment";
 import AttachmentIcon from "@mui/icons-material/Attachment";
 
-function Card() {
+function Card({ card }) {
+  const showCardActions = () => {
+    return (
+      !!card?.memberIds?.length ||
+      !!card?.comments?.length ||
+      !!card?.attachments?.length
+    );
+  };
+
   return (
     <CardMui
       sx={{
@@ -16,15 +24,10 @@ function Card() {
         flexShrink: "0",
         backgroundColor: (theme) =>
           theme.palette.mode === "light" ? "#fff" : "#1c1c1c",
-        // boxShadow: "0 1px 1px rgba(0,0,0,0.2)",
         boxShadow: "0px 1px 1px #1E1F2140, 0px 0px 1px #1E1F214F",
       }}
     >
-      <CardMedia
-        sx={{ height: 140 }}
-        image="https://images.pexels.com/photos/163872/italy-cala-gonone-air-sky-163872.jpeg"
-        title="green iguana"
-      />
+      {card?.cover && <CardMedia sx={{ height: 140 }} image={card?.cover} />}
       <CardContent
         sx={{
           padding: 1.5,
@@ -33,23 +36,31 @@ function Card() {
           },
         }}
       >
-        <Typography>Lizard</Typography>
+        <Typography>{card?.title}</Typography>
       </CardContent>
-      <CardActions
-        sx={{
-          padding: "0px 4px 8px 4px",
-        }}
-      >
-        <Button size="small" startIcon={<GroupIcon />}>
-          20
-        </Button>
-        <Button size="small" startIcon={<CommentIcon />}>
-          15
-        </Button>
-        <Button size="small" startIcon={<AttachmentIcon />}>
-          10
-        </Button>
-      </CardActions>
+      {showCardActions() && (
+        <CardActions
+          sx={{
+            padding: "0px 4px 8px 4px",
+          }}
+        >
+          {!!card?.memberIds?.length && (
+            <Button size="small" startIcon={<GroupIcon />}>
+              {card?.memberIds?.length}
+            </Button>
+          )}
+          {!!card?.comments?.length && (
+            <Button size="small" startIcon={<CommentIcon />}>
+              {card?.comments?.length}
+            </Button>
+          )}
+          {!!card?.attachments?.length && (
+            <Button size="small" startIcon={<AttachmentIcon />}>
+              {card?.attachments?.length}
+            </Button>
+          )}
+        </CardActions>
+      )}
     </CardMui>
   );
 }
