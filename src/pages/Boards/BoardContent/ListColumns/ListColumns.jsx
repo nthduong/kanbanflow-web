@@ -2,46 +2,55 @@ import Box from "@mui/material/Box";
 import Column from "./Column/Column";
 import { Button } from "@mui/material";
 import PostAddIcon from "@mui/icons-material/PostAdd";
+import {
+  SortableContext,
+  horizontalListSortingStrategy,
+} from "@dnd-kit/sortable";
 
 function ListColumns({ columns }) {
   return (
-    <Box
-      sx={{
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        overflowX: "auto",
-        overflowY: "hidden",
-        paddingTop: "16px",
-        paddingLeft: "16px",
-      }}
+    <SortableContext
+      items={columns?.map((c) => c._id)}
+      strategy={horizontalListSortingStrategy}
     >
-      {columns?.map((column) => (
-        <Column key={column._id} column={column} />
-      ))}
       <Box
         sx={{
-          minWidth: "200px",
-          maxWidth: "200px",
-          height: "fit-content",
-          borderRadius: "10px",
-          backgroundColor: "#646a5f5e",
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          overflowX: "auto",
+          overflowY: "hidden",
+          paddingTop: "16px",
+          paddingLeft: "16px",
         }}
       >
-        <Button
-          startIcon={<PostAddIcon />}
+        {columns?.map((column) => (
+          <Column key={column._id} column={column} />
+        ))}
+        <Box
           sx={{
-            color: "#fff",
-            width: "100%",
-            justifyContent: "start",
-            pl: "12px",
-            py: "8px",
+            minWidth: "200px",
+            maxWidth: "200px",
+            height: "fit-content",
+            borderRadius: "10px",
+            backgroundColor: "#646a5f5e",
           }}
         >
-          Add new column
-        </Button>
+          <Button
+            startIcon={<PostAddIcon />}
+            sx={{
+              color: "#fff",
+              width: "100%",
+              justifyContent: "start",
+              pl: "12px",
+              py: "8px",
+            }}
+          >
+            Add new column
+          </Button>
+        </Box>
       </Box>
-    </Box>
+    </SortableContext>
   );
 }
 
