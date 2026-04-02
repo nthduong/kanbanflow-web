@@ -7,8 +7,23 @@ import CardMedia from "@mui/material/CardMedia";
 import GroupIcon from "@mui/icons-material/Group";
 import CommentIcon from "@mui/icons-material/Comment";
 import AttachmentIcon from "@mui/icons-material/Attachment";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 function Card({ card }) {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
+    useSortable({
+      id: card._id,
+      data: { ...card },
+    });
+
+  const dndkitCartStyle = {
+    transform: CSS.Translate.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : undefined,
+
+  };
+
   const showCardActions = () => {
     return (
       !!card?.memberIds?.length ||
@@ -19,6 +34,10 @@ function Card({ card }) {
 
   return (
     <CardMui
+      ref={setNodeRef}
+      style={dndkitCartStyle}
+      {...attributes}
+      {...listeners}
       sx={{
         borderRadius: "10px",
         flexShrink: "0",
