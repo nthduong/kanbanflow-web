@@ -11,25 +11,19 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
 function Card({ card }) {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
-    useSortable({
-      id: card._id,
-      data: { ...card },
-    });
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+    id: card._id,
+    data: { ...card },
+  });
 
   const dndkitCartStyle = {
     transform: CSS.Translate.toString(transform),
     transition,
     opacity: isDragging ? 0.5 : undefined,
-
   };
 
   const showCardActions = () => {
-    return (
-      !!card?.memberIds?.length ||
-      !!card?.comments?.length ||
-      !!card?.attachments?.length
-    );
+    return !!card?.memberIds?.length || !!card?.comments?.length || !!card?.attachments?.length;
   };
 
   return (
@@ -41,8 +35,10 @@ function Card({ card }) {
       sx={{
         borderRadius: "10px",
         flexShrink: "0",
-        backgroundColor: (theme) =>
-          theme.palette.mode === "light" ? "#fff" : "#1c1c1c",
+        opacity: card.FE_PlaceholderCard ? "0" : "1",
+        pointerEvents: card.FE_PlaceholderCard ? "none" : "unset",
+        position: card.FE_PlaceholderCard ? "fixed" : "unset",
+        backgroundColor: (theme) => (theme.palette.mode === "light" ? "#fff" : "#1c1c1c"),
         boxShadow: "0px 1px 1px #1E1F2140, 0px 0px 1px #1E1F214F",
       }}
     >
