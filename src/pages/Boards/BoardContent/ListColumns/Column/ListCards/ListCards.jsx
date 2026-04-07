@@ -1,16 +1,10 @@
 import Box from "@mui/material/Box";
 import Card from "./Card/Card";
-import {
-  SortableContext,
-  verticalListSortingStrategy,
-} from "@dnd-kit/sortable";
+import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 
 function ListCards({ cards }) {
   return (
-    <SortableContext
-      items={cards?.map((c) => c._id)}
-      strategy={verticalListSortingStrategy}
-    >
+    <SortableContext items={cards?.map((c) => c._id)} strategy={verticalListSortingStrategy}>
       <Box
         sx={{
           display: "flex",
@@ -23,19 +17,17 @@ function ListCards({ cards }) {
           maxHeight: (theme) =>
             `calc(${theme.kanban.boardContentHeight} - ${theme.kanban.cardHeaderHeight} - ${theme.kanban.cardFooterHeight} - ${theme.kanban.boardContentPadding} * 2 - 15px)`,
           "&::-webkit-scrollbar": {
-            width: "6px",
+            width: "4px",
           },
           "&::-webkit-scrollbar-track": {
             background: "transparent",
           },
           "&::-webkit-scrollbar-thumb": {
-            backgroundColor: (theme) =>
-              theme.palette.mode === "light" ? "#656d4a" : "#999",
+            backgroundColor: (theme) => (theme.palette.mode === "light" ? "#656d4a" : "#999"),
             borderRadius: "8px",
           },
           "&::-webkit-scrollbar-thumb:hover": {
-            backgroundColor: (theme) =>
-              theme.palette.mode === "light" ? "#434734" : "#888",
+            backgroundColor: (theme) => (theme.palette.mode === "light" ? "#434734" : "#888"),
           },
         }}
       >
