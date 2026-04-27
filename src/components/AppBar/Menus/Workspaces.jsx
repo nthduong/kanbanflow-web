@@ -35,7 +35,7 @@ function WorkSpaces() {
         onClick={handleClick}
         endIcon={<KeyboardArrowDownIcon />}
       >
-        Dashboard
+        WorkSpaces
       </Button>
       <Menu
         id="basic-menu-workspaces"

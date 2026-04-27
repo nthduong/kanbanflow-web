@@ -14,7 +14,7 @@ import Badge from "@mui/material/Badge";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import Tooltip from "@mui/material/Tooltip";
 import HelpIcon from "@mui/icons-material/Help";
-import AddIcon from "@mui/icons-material/Add";
+import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
@@ -32,8 +32,7 @@ function AppBar() {
         justifyContent: "space-between",
         padding: "0 15px",
         gap: 2,
-        backgroundColor: (theme) =>
-          theme.palette.mode === "light" ? "#718355" : "#1c1c1c",
+        backgroundColor: (theme) => (theme.palette.mode === "light" ? "#718355" : "#1c1c1c"),
       }}
     >
       <Box
@@ -44,27 +43,24 @@ function AppBar() {
         }}
       >
         <AppsIcon sx={{ color: "#fff" }} />
-        <Typography
-          variant="span"
-          sx={{ fontSize: "14px", fontWeight: "500", color: "#fff" }}
-        >
+        <Typography variant="span" sx={{ fontSize: "14px", fontWeight: "500", color: "#fff" }}>
           Kanban Flow
         </Typography>
 
-        <Box sx={{ display: { xs: "none", md: "flex" } }}>
+        {/* <Box sx={{ display: { xs: "none", md: "flex" } }}>
           <WorkSpaces />
           <Recent />
           <Starred />
           <Templates />
-        </Box>
+        </Box> */}
         <Button
           variant="outlined"
-          startIcon={<AddIcon />}
+          startIcon={<LibraryAddIcon />}
           sx={{
             color: "#fff",
-            borderColor: "#fff",
+            borderColor: "transparent",
             "&:hover": {
-              borderColor: "#fff",
+              borderColor: "transparent",
             },
           }}
         >
@@ -119,11 +115,7 @@ function AppBar() {
         />
         <ModeSelect />
         <Tooltip title="Notifications">
-          <Badge
-            color="warning"
-            variant="dot"
-            sx={{ cursor: "pointer", color: "#fff" }}
-          >
+          <Badge color="warning" variant="dot" sx={{ cursor: "pointer", color: "#fff" }}>
             <NotificationsIcon />
           </Badge>
         </Tooltip>

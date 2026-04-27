@@ -56,7 +56,7 @@ function BoardBar({ board }) {
           label={capitalizeFirstLetter(board?.type)}
           sx={{ ...MENU_STYLE, display: { xs: "none", md: "flex" } }}
         />
-        <Chip
+        {/* <Chip
           clickable
           icon={<AddToDriveIcon />}
           label="Add To Google Driver"
@@ -73,7 +73,7 @@ function BoardBar({ board }) {
           icon={<FilterAltIcon />}
           label="Filter"
           sx={{ ...MENU_STYLE, display: { xs: "none", md: "flex" } }}
-        />
+        /> */}
       </Box>
 
       <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
