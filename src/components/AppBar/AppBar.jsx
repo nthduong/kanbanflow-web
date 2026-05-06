@@ -14,7 +14,7 @@ import Badge from "@mui/material/Badge";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import Tooltip from "@mui/material/Tooltip";
 import HelpIcon from "@mui/icons-material/Help";
-import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
+import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
@@ -88,14 +88,16 @@ function AppBar() {
               </InputAdornment>
             ),
             endAdornment: (
-              <CloseIcon
-                onClick={() => setInputSearch("")}
-                sx={{
-                  color: inputSearch ? "#fff" : "transparent",
-                  cursor: inputSearch ? "pointer" : "text",
-                }}
-                fontSize={"small"}
-              />
+              <InputAdornment position="end">
+                <CloseIcon
+                  onClick={() => setInputSearch("")}
+                  sx={{
+                    color: inputSearch ? "#fff" : "transparent",
+                    cursor: inputSearch ? "pointer" : "text",
+                  }}
+                  fontSize={"small"}
+                />
+              </InputAdornment>
             ),
           }}
           sx={{

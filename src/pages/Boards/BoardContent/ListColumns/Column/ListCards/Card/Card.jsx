@@ -9,6 +9,7 @@ import CommentIcon from "@mui/icons-material/Comment";
 import AttachmentIcon from "@mui/icons-material/Attachment";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import theme from "~/assets/theme";
 
 function Card({ card }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
@@ -40,6 +41,8 @@ function Card({ card }) {
         position: card.FE_PlaceholderCard ? "fixed" : "unset",
         backgroundColor: (theme) => (theme.palette.mode === "light" ? "#fff" : "#1c1c1c"),
         boxShadow: "0px 1px 1px #1E1F2140, 0px 0px 1px #1E1F214F",
+        border: "2px solid transparent",
+        "&:hover": { borderColor: (theme) => theme.palette.primary.main },
       }}
     >
       {card?.cover && <CardMedia sx={{ height: 140 }} image={card?.cover} />}

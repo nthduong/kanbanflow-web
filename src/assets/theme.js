@@ -20,20 +20,20 @@ const theme = extendTheme({
   },
 
   colorSchemes: {
-    // light: {
-    //   palette: {
-    //     primary: {
-    //       main: "#86a9f4",
-    //     },
-    //   },
-    // },
-    // dark: {
-    //   palette: {
-    //     primary: {
-    //       main: "#3e473e",
-    //     },
-    //   },
-    // },
+    light: {
+      palette: {
+        primary: {
+          main: "#718355",
+        },
+      },
+    },
+    dark: {
+      palette: {
+        primary: {
+          main: "#fff",
+        },
+      },
+    },
   },
 
   components: {
