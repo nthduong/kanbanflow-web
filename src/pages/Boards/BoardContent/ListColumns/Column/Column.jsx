@@ -179,6 +179,7 @@ function Column({ column }) {
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
+                width: "100%",
               }}
             >
               <Button startIcon={<AddCardIcon />} onClick={toggleOpenNewCardForm} sx={{ color: "#fff" }}>
@@ -200,6 +201,7 @@ function Column({ column }) {
                 size="small"
                 variant="outlined"
                 value={newCardTitle}
+                data-no-dnd={true}
                 onChange={(e) => setNewCardTitle(e.target.value)}
                 autoFocus
                 sx={{
@@ -227,6 +229,7 @@ function Column({ column }) {
                   onClick={addNewCard}
                   variant="contained"
                   color="success"
+                  data-no-dnd={true}
                   sx={{
                     boxShadow: "none",
                     border: "0.5px solid",
@@ -237,6 +240,7 @@ function Column({ column }) {
                   Add
                 </Button>
                 <CloseIcon
+                  data-no-dnd={true}
                   onClick={() => toggleOpenNewCardForm()}
                   sx={{
                     color: "#fff",
