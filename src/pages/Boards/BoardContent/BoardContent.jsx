@@ -28,7 +28,7 @@ const ACTIVE_DRAG_ITEM_TYPE = {
   CARD: "ACTIVE_DRAG_ITEM_TYPE_CARD",
 };
 
-function BoardContent({ board, createNewColumn, createNewCard }) {
+function BoardContent({ board, createNewColumn, createNewCard, moveColumns }) {
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
       distance: 10,
@@ -54,7 +54,6 @@ function BoardContent({ board, createNewColumn, createNewCard }) {
   useEffect(() => {
     setOrderedColumns(mapOrder(board?.columns, board?.columnOrderIds, "_id"));
   }, [board]);
-
 
   const findColumnByCardId = (cardId) => {
     return orderedColumns?.find((column) => column?.cards?.map((card) => card._id).includes(cardId));
@@ -230,6 +229,8 @@ function BoardContent({ board, createNewColumn, createNewCard }) {
         const dndOrderedColumns = arrayMove(orderedColumns, oldColumnIndex, newColumnIndex);
 
         setOrderedColumns(dndOrderedColumns);
+
+        moveColumns(dndOrderedColumns);
       }
     }
 
@@ -270,7 +271,8 @@ function BoardContent({ board, createNewColumn, createNewCard }) {
             droppableContainers: args.droppableContainers.filter((container) => {
               return (
                 container.id !== overId &&
-                (checkColumn?.cardOrderIds?.includes(container.id) || container.id === getColumnDropZoneId(checkColumn._id))
+                (checkColumn?.cardOrderIds?.includes(container.id) ||
+                  container.id === getColumnDropZoneId(checkColumn._id))
               );
             }),
           })[0]?.id;
