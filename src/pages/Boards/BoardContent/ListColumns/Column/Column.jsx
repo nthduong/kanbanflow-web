@@ -18,6 +18,7 @@ import DragHandleIcon from "@mui/icons-material/DragHandle";
 import Tooltip from "@mui/material/Tooltip";
 import ListCards from "./ListCards/ListCards";
 import { mapOrder } from "~/utils/sort";
+import { useDroppable } from "@dnd-kit/core";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import TextField from "@mui/material/TextField";
@@ -28,6 +29,14 @@ function Column({ column, createNewCard }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: column._id,
     data: { ...column },
+  });
+
+  const { setNodeRef: setDroppableNodeRef, isOver: isOverColumn } = useDroppable({
+    id: `column-drop-${column._id}`,
+    data: {
+      type: "COLUMN_DROP_ZONE",
+      columnId: column._id,
+    },
   });
 
   const dndkitColumnStyle = {
@@ -167,7 +176,11 @@ function Column({ column, createNewCard }) {
         </Box>
 
         {/* Card Content */}
-        <ListCards cards={orderedCards} />
+        <Box
+          ref={setDroppableNodeRef}
+        >
+          <ListCards cards={orderedCards} />
+        </Box>
 
         {/* Card Footer */}
         <Box

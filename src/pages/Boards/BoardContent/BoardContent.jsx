@@ -55,8 +55,33 @@ function BoardContent({ board, createNewColumn, createNewCard }) {
     setOrderedColumns(mapOrder(board?.columns, board?.columnOrderIds, "_id"));
   }, [board]);
 
+
   const findColumnByCardId = (cardId) => {
     return orderedColumns?.find((column) => column?.cards?.map((card) => card._id).includes(cardId));
+  };
+
+  const findColumnById = (columnId) => orderedColumns?.find((column) => column?._id === columnId);
+  const getColumnDropZoneId = (columnId) => `column-drop-${columnId}`;
+  const resolveColumnIdFromOverId = (overId) => {
+    if (!overId) return null;
+    if (typeof overId === "string" && overId.startsWith("column-drop-")) return overId.replace("column-drop-", "");
+    return findColumnById(overId)?._id ?? null;
+  };
+
+  const getOverTarget = (overId) => {
+    const columnId = resolveColumnIdFromOverId(overId);
+    if (columnId) {
+      const overColumn = findColumnById(columnId);
+      return {
+        overColumn,
+        overDragCardId: overColumn?.cardOrderIds?.[overColumn.cardOrderIds.length - 1] ?? overId,
+      };
+    }
+
+    return {
+      overColumn: findColumnByCardId(overId),
+      overDragCardId: overId,
+    };
   };
 
   const moveCardBetweenDifferentColumns = (
@@ -130,10 +155,10 @@ function BoardContent({ board, createNewColumn, createNewCard }) {
       id: activeDragCardId,
       data: { current: activeDragCardData },
     } = active;
-    const { id: overDragCardId } = over;
+    const { id: overId } = over;
 
     const activeColumn = findColumnByCardId(activeDragCardId);
-    const overColumn = findColumnByCardId(overDragCardId);
+    const { overColumn, overDragCardId } = getOverTarget(overId);
 
     if (!activeColumn || !overColumn) return;
 
@@ -160,10 +185,9 @@ function BoardContent({ board, createNewColumn, createNewCard }) {
         id: activeDragCardId,
         data: { current: activeDragCardData },
       } = active;
-      const { id: overDragCardId } = over;
-
+      const { id: overId } = over;
       const activeColumn = findColumnByCardId(activeDragCardId);
-      const overColumn = findColumnByCardId(overDragCardId);
+      const { overColumn, overDragCardId } = getOverTarget(overId);
 
       if (!activeColumn || !overColumn) return;
 
@@ -244,7 +268,10 @@ function BoardContent({ board, createNewColumn, createNewCard }) {
           overId = closestCenter({
             ...args,
             droppableContainers: args.droppableContainers.filter((container) => {
-              return container.id !== overId && checkColumn?.cardOrderIds?.includes(container.id);
+              return (
+                container.id !== overId &&
+                (checkColumn?.cardOrderIds?.includes(container.id) || container.id === getColumnDropZoneId(checkColumn._id))
+              );
             }),
           })[0]?.id;
         }
