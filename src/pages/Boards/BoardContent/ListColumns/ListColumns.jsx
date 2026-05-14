@@ -6,18 +6,25 @@ import { SortableContext, horizontalListSortingStrategy } from "@dnd-kit/sortabl
 import { useState } from "react";
 import TextField from "@mui/material/TextField";
 import CloseIcon from "@mui/icons-material/Close";
+import { toast } from "react-toastify";
 
-function ListColumns({ columns }) {
+function ListColumns({ columns, createNewColumn, createNewCard }) {
   const [openNewColumnForm, setOpenNewColumnForm] = useState(false);
   const toggleOpenNewColumnForm = () => setOpenNewColumnForm(!openNewColumnForm);
 
   const [newColumnTitle, setNewColumnTitle] = useState("");
 
-  const addNewColumn = () => {
+  const addNewColumn = async () => {
     if (!newColumnTitle) {
-      console.error("not value");
+      toast.error("Please enter column title");
       return;
     }
+
+    const newColumnData = {
+      title: newColumnTitle,
+    };
+
+    await createNewColumn(newColumnData);
 
     setNewColumnTitle("");
     toggleOpenNewColumnForm();
@@ -36,7 +43,7 @@ function ListColumns({ columns }) {
         }}
       >
         {columns?.map((column) => (
-          <Column key={column._id} column={column} />
+          <Column key={column._id} column={column} createNewCard={createNewCard} />
         ))}
         {!openNewColumnForm ? (
           <Box
@@ -47,6 +54,7 @@ function ListColumns({ columns }) {
               height: "fit-content",
               borderRadius: "10px",
               backgroundColor: "#646a5f5e",
+              marginRight: 2,
             }}
           >
             <Button
@@ -74,6 +82,7 @@ function ListColumns({ columns }) {
               display: "flex",
               flexDirection: "column",
               gap: 1.5,
+              marginRight: 2,
             }}
           >
             <TextField
