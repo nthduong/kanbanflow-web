@@ -3,11 +3,14 @@ import AppBar from "~/components/AppBar/AppBar";
 import BoardBar from "./BoardBar/BoardBar";
 import BoardContent from "./BoardContent/BoardContent";
 import { mockData } from "~/apis/mock-data";
-import { fetchBoardDetailsAPI, updateBoardDetailsAPI, createNewCardAPI } from "~/apis";
+import { fetchBoardDetailsAPI, updateBoardDetailsAPI, createNewCardAPI, updateColumnDetailsAPI } from "~/apis";
 import { useEffect, useState } from "react";
 import { createNewColumnAPI } from "~/apis";
 import { generatePlaceholderCard } from "~/utils/formatters";
 import { isEmpty } from "lodash";
+import { mapOrder } from "~/utils/sort";
+import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function Board() {
   const [board, setBoard] = useState(null);
@@ -16,10 +19,13 @@ function Board() {
     const boardId = "69f6ca9d05498f694d2515d6";
 
     fetchBoardDetailsAPI(boardId).then((board) => {
+      board.columns = mapOrder(board?.columns, board?.columnOrderIds, "_id");
       board.columns.forEach((column) => {
         if (isEmpty(column.cards)) {
           column.cards = [generatePlaceholderCard(column)];
           column.cardOrderIds = [generatePlaceholderCard(column).id];
+        } else {
+          column.cards = mapOrder(column?.cards, column?.cardOrderIds, "_id");
         }
       });
 
@@ -58,6 +64,35 @@ function Board() {
 
     updateBoardDetailsAPI(newBoard._id, { columnOrderIds: dndOrderedColumnsIds });
   };
+
+  const moveCardInTheSameColumn = (dndOrderedCards, dndOrderedCardsIds, oldColumnId) => {
+    const newBoard = { ...board };
+    const columnToUpdate = newBoard.columns.find((column) => column._id === oldColumnId);
+    columnToUpdate.cards = dndOrderedCards;
+    columnToUpdate.cardOrderIds = dndOrderedCardsIds;
+    setBoard(newBoard);
+
+    updateColumnDetailsAPI(oldColumnId, { cardOrderIds: dndOrderedCardsIds });
+  };
+
+  if (!board) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          width: "100vw",
+          gap: 2,
+        }}
+      >
+        <CircularProgress />
+        loading...
+      </Box>
+    );
+  }
+
   return (
     <Container disableGutters maxWidth={false} sx={{ height: "100vh" }}>
       <AppBar />
@@ -67,6 +102,7 @@ function Board() {
         createNewColumn={createNewColumn}
         createNewCard={createNewCard}
         moveColumns={moveColumns}
+        moveCardInTheSameColumn={moveCardInTheSameColumn}
       />
     </Container>
   );

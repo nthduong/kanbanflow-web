@@ -55,14 +55,14 @@ function Column({ column, createNewCard }) {
     setAnchorEl(null);
   };
 
-  const orderedCards = mapOrder(column?.cards, column?.cardOrderIds, "_id");
+  const orderedCards = column.cards;
 
   const [openNewCardForm, setOpenNewCardForm] = useState(false);
   const toggleOpenNewCardForm = () => setOpenNewCardForm(!openNewCardForm);
 
   const [newCardTitle, setNewCardTitle] = useState("");
 
-  const addNewCard = async () => {
+  const addNewCard = () => {
     if (!newCardTitle) {
       toast.error("Please enter card title");
       return;
@@ -72,7 +72,7 @@ function Column({ column, createNewCard }) {
       title: newCardTitle,
       columnId: column._id,
     };
-    await createNewCard(newCardData);
+    createNewCard(newCardData);
     setNewCardTitle("");
     toggleOpenNewCardForm();
   };
@@ -176,9 +176,7 @@ function Column({ column, createNewCard }) {
         </Box>
 
         {/* Card Content */}
-        <Box
-          ref={setDroppableNodeRef}
-        >
+        <Box ref={setDroppableNodeRef}>
           <ListCards cards={orderedCards} />
         </Box>
 
