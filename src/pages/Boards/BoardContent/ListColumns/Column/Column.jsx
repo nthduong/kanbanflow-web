@@ -17,7 +17,6 @@ import AddCardIcon from "@mui/icons-material/AddCard";
 import DragHandleIcon from "@mui/icons-material/DragHandle";
 import Tooltip from "@mui/material/Tooltip";
 import ListCards from "./ListCards/ListCards";
-import { mapOrder } from "~/utils/sort";
 import { useDroppable } from "@dnd-kit/core";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";

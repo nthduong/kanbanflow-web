@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import ListColumns from "./ListColumns/ListColumns";
 import Box from "@mui/material/Box";
-import { mapOrder } from "~/utils/sort";
 import {
   DragOverlay,
   DndContext,
@@ -28,7 +27,14 @@ const ACTIVE_DRAG_ITEM_TYPE = {
   CARD: "ACTIVE_DRAG_ITEM_TYPE_CARD",
 };
 
-function BoardContent({ board, createNewColumn, createNewCard, moveColumns, moveCardInTheSameColumn }) {
+function BoardContent({
+  board,
+  createNewColumn,
+  createNewCard,
+  moveColumns,
+  moveCardInTheSameColumn,
+  moveCardInTheDifferentColumn,
+}) {
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
       distance: 10,
@@ -91,6 +97,7 @@ function BoardContent({ board, createNewColumn, createNewCard, moveColumns, move
     activeColumn,
     activeDragCardId,
     activeDragCardData,
+    triggerFrom,
   ) => {
     setOrderedColumns((prevColumns) => {
       const overCardIndex = overColumn?.cards?.findIndex((card) => card._id === overDragCardId);
@@ -126,6 +133,10 @@ function BoardContent({ board, createNewColumn, createNewCard, moveColumns, move
         nextOverColumn.cards = nextOverColumn.cards.filter((card) => !card.FE_PlaceholderCard);
 
         nextOverColumn.cardOrderIds = nextOverColumn.cards.map((card) => card._id);
+
+        if (triggerFrom === "handleDragEnd") {
+          moveCardInTheDifferentColumn(activeDragCardId, oldColumn._id, nextOverColumn._id, nextColumns);
+        }
       }
 
       return nextColumns;
@@ -170,6 +181,7 @@ function BoardContent({ board, createNewColumn, createNewCard, moveColumns, move
         activeColumn,
         activeDragCardId,
         activeDragCardData,
+        "handleDragOver",
       );
     }
   };
@@ -201,6 +213,7 @@ function BoardContent({ board, createNewColumn, createNewCard, moveColumns, move
           activeColumn,
           activeDragCardId,
           activeDragCardData,
+          "handleDragEnd",
         );
       } else {
         // kéo thả 2 column giống nhau
