@@ -23,8 +23,9 @@ import { CSS } from "@dnd-kit/utilities";
 import TextField from "@mui/material/TextField";
 import CloseIcon from "@mui/icons-material/Close";
 import { toast } from "react-toastify";
+import { useConfirm } from "material-ui-confirm";
 
-function Column({ column, createNewCard }) {
+function Column({ column, createNewCard, deleteColumnDetails }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: column._id,
     data: { ...column },
@@ -74,6 +75,21 @@ function Column({ column, createNewCard }) {
     createNewCard(newCardData);
     setNewCardTitle("");
     toggleOpenNewCardForm();
+  };
+  const confirmDeleteColumn = useConfirm();
+  const handleDeleteColumn = async () => {
+    try {
+      await confirmDeleteColumn({
+        title: "Delete column?",
+        description: "This action will permanently delete your Column and its Cards! Are you sure?",
+        confirmationText: "Delete",
+        confirmationButtonProps: { color: "error", variant: "outlined" },
+      });
+
+      await deleteColumnDetails(column._id);
+    } catch (err) {
+      () => {};
+    }
   };
   return (
     <div ref={setNodeRef} style={dndkitColumnStyle} {...attributes}>
@@ -134,43 +150,53 @@ function Column({ column, createNewCard }) {
               "aria-labelledby": "basic-button-workspaces",
             }}
           >
-            <MenuItem onClick={handleClose}>
+            <MenuItem
+              onClick={() => {
+                handleClose();
+                toggleOpenNewCardForm();
+              }}
+            >
               <ListItemIcon>
                 <AddCardIcon fontSize="small" />
               </ListItemIcon>
               <ListItemText>Add new card</ListItemText>
             </MenuItem>
-            <MenuItem onClick={handleClose}>
+            {/* <MenuItem onClick={handleClose}>
               <ListItemIcon>
                 <ContentCut fontSize="small" />
               </ListItemIcon>
               <ListItemText>Cut</ListItemText>
-            </MenuItem>
-            <MenuItem onClick={handleClose}>
+            </MenuItem> */}
+            {/* <MenuItem onClick={handleClose}>
               <ListItemIcon>
                 <ContentCopy fontSize="small" />
               </ListItemIcon>
               <ListItemText>Copy</ListItemText>
-            </MenuItem>
-            <MenuItem onClick={handleClose}>
+            </MenuItem> */}
+            {/* <MenuItem onClick={handleClose}>
               <ListItemIcon>
                 <ContentPaste fontSize="small" />
               </ListItemIcon>
               <ListItemText>Paste</ListItemText>
-            </MenuItem>
+            </MenuItem> */}
             <Divider />
-            <MenuItem onClick={handleClose}>
+            <MenuItem
+              onClick={() => {
+                handleClose();
+                handleDeleteColumn();
+              }}
+            >
               <ListItemIcon>
                 <DeleteIcon fontSize="small" />
               </ListItemIcon>
               <ListItemText>Remove this column</ListItemText>
             </MenuItem>
-            <MenuItem onClick={handleClose}>
+            {/* <MenuItem onClick={handleClose}>
               <ListItemIcon>
                 <InventoryIcon fontSize="small" />
               </ListItemIcon>
               <ListItemText>Archive this column</ListItemText>
-            </MenuItem>
+            </MenuItem> */}
           </Menu>
         </Box>
 

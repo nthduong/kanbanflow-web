@@ -34,6 +34,7 @@ function BoardContent({
   moveColumns,
   moveCardInTheSameColumn,
   moveCardInTheDifferentColumn,
+  deleteColumnDetails,
 }) {
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
@@ -320,7 +321,12 @@ function BoardContent({
           display: "flex",
         }}
       >
-        <ListColumns columns={orderedColumns} createNewColumn={createNewColumn} createNewCard={createNewCard} />
+        <ListColumns
+          columns={orderedColumns}
+          createNewColumn={createNewColumn}
+          createNewCard={createNewCard}
+          deleteColumnDetails={deleteColumnDetails}
+        />
         <DragOverlay dropAnimation={CustomDropAnimation}>
           {!activeDragItemType && null}
           {activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.COLUMN && <Column column={activeDragItemData}></Column>}
