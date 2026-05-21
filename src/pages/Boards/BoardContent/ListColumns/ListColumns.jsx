@@ -1,19 +1,25 @@
-import Box from "@mui/material/Box";
-import Column from "./Column/Column";
-import { Button } from "@mui/material";
-import PostAddIcon from "@mui/icons-material/PostAdd";
-import { SortableContext, horizontalListSortingStrategy } from "@dnd-kit/sortable";
 import { useState } from "react";
+import { toast } from "react-toastify";
+import { cloneDeep } from "lodash";
+import { useDispatch, useSelector } from "react-redux";
+
+import { Button } from "@mui/material";
+import Box from "@mui/material/Box";
+import PostAddIcon from "@mui/icons-material/PostAdd";
 import TextField from "@mui/material/TextField";
 import CloseIcon from "@mui/icons-material/Close";
-import { toast } from "react-toastify";
-import { createNewColumnAPI } from "~/apis";
-import { updateCurrentActiveBoard, selectCurrentActiveBoard } from "~/redux/activeBoard/activeBoardSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { generatePlaceholderCard } from "~/utils/formatters";
-import { cloneDeep } from "lodash";
 
-function ListColumns({ columns, createNewCard, deleteColumnDetails }) {
+import { SortableContext, horizontalListSortingStrategy } from "@dnd-kit/sortable";
+
+import { updateCurrentActiveBoard, selectCurrentActiveBoard } from "~/redux/activeBoard/activeBoardSlice";
+
+import { createNewColumnAPI } from "~/apis";
+
+import { generatePlaceholderCard } from "~/utils/formatters";
+
+import Column from "./Column/Column";
+
+function ListColumns({ columns }) {
   const dispatch = useDispatch();
   const board = useSelector(selectCurrentActiveBoard);
 
@@ -59,12 +65,7 @@ function ListColumns({ columns, createNewCard, deleteColumnDetails }) {
         }}
       >
         {columns?.map((column) => (
-          <Column
-            key={column._id}
-            column={column}
-            createNewCard={createNewCard}
-            deleteColumnDetails={deleteColumnDetails}
-          />
+          <Column key={column._id} column={column} />
         ))}
         {!openNewColumnForm ? (
           <Box

@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { cloneDeep } from "lodash";
-import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 
 import Container from "@mui/material/Container";
@@ -15,15 +14,14 @@ import {
 
 import {
   updateBoardDetailsAPI,
-  createNewCardAPI,
   updateColumnDetailsAPI,
   moveCardInTheDifferentColumnAPI,
-  deleteColumnDetailsAPI,
 } from "~/apis";
 
 import AppBar from "~/components/AppBar/AppBar";
 import BoardBar from "./BoardBar/BoardBar";
 import BoardContent from "./BoardContent/BoardContent";
+
 // import { mockData } from "~/apis/mock-data";
 
 
@@ -36,23 +34,6 @@ function Board() {
 
     dispatch(fetchBoardDetailsAPI(boardId));
   }, [dispatch]);
-
-  const createNewCard = async (newCardData) => {
-    const createCard = await createNewCardAPI({ ...newCardData, boardId: board._id });
-
-    const newBoard = cloneDeep(board);
-    const columnToUpdate = newBoard.columns.find((column) => column._id === createCard.columnId);
-
-    if (columnToUpdate.cards.some((card) => card.FE_PlaceholderCard)) {
-      columnToUpdate.cards = [createCard];
-      columnToUpdate.cardOrderIds = [createCard._id];
-    } else {
-      columnToUpdate.cards.push(createCard);
-      columnToUpdate.cardOrderIds.push(createCard._id);
-    }
-
-    dispatch(updateCurrentActiveBoard(newBoard));
-  };
 
   const moveColumns = (dndOrderedColumns) => {
     const dndOrderedColumnsIds = dndOrderedColumns.map((column) => column._id);
@@ -99,19 +80,6 @@ function Board() {
     });
   };
 
-  const deleteColumnDetails = async (columnId) => {
-    const newBoard = { ...board };
-    newBoard.columns = newBoard.columns.filter((column) => column._id !== columnId);
-    newBoard.columnOrderIds = newBoard.columnOrderIds.filter((id) => id !== columnId);
-
-    dispatch(updateCurrentActiveBoard(newBoard));
-
-    const deleteColumn = await deleteColumnDetailsAPI(columnId);
-    if (deleteColumn?.deleteResult) {
-      toast.success(deleteColumn?.deleteResult);
-    }
-  };
-
   if (!board) {
     return (
       <Box
@@ -136,11 +104,6 @@ function Board() {
       <BoardBar board={board} />
       <BoardContent
         board={board}
-
-        // createNewColumn={createNewColumn}
-        createNewCard={createNewCard}
-        deleteColumnDetails={deleteColumnDetails}
-
         moveColumns={moveColumns}
         moveCardInTheSameColumn={moveCardInTheSameColumn}
         moveCardInTheDifferentColumn={moveCardInTheDifferentColumn}

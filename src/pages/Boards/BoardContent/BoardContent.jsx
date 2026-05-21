@@ -1,11 +1,13 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import ListColumns from "./ListColumns/ListColumns";
+import { cloneDeep, isEmpty } from "lodash";
+
 import Box from "@mui/material/Box";
+
+import { arrayMove } from "@dnd-kit/sortable";
+import { MouseSensor, TouchSensor } from "~/customLibraries/DndKitSensors";
 import {
   DragOverlay,
   DndContext,
-  // MouseSensor,
-  // TouchSensor,
   useSensor,
   useSensors,
   defaultDropAnimationSideEffects,
@@ -14,28 +16,22 @@ import {
   rectIntersection,
   getFirstCollision,
   closestCenter,
+  // MouseSensor,
+  // TouchSensor,
 } from "@dnd-kit/core";
-import { MouseSensor, TouchSensor } from "~/customLibraries/DndKitSensors";
-import { cloneDeep, isEmpty } from "lodash";
-import { arrayMove } from "@dnd-kit/sortable";
+
+import { generatePlaceholderCard } from "~/utils/formatters";
+
+import ListColumns from "./ListColumns/ListColumns";
 import Column from "./ListColumns/Column/Column";
 import Card from "./ListColumns/Column/ListCards/Card/Card";
-import { generatePlaceholderCard } from "~/utils/formatters";
 
 const ACTIVE_DRAG_ITEM_TYPE = {
   COLUMN: "ACTIVE_DRAG_ITEM_TYPE_COLUMN",
   CARD: "ACTIVE_DRAG_ITEM_TYPE_CARD",
 };
 
-function BoardContent({
-  board,
-  createNewColumn,
-  createNewCard,
-  moveColumns,
-  moveCardInTheSameColumn,
-  moveCardInTheDifferentColumn,
-  deleteColumnDetails,
-}) {
+function BoardContent({ board, createNewColumn, moveColumns, moveCardInTheSameColumn, moveCardInTheDifferentColumn }) {
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
       distance: 10,
@@ -321,12 +317,7 @@ function BoardContent({
           display: "flex",
         }}
       >
-        <ListColumns
-          columns={orderedColumns}
-          createNewColumn={createNewColumn}
-          createNewCard={createNewCard}
-          deleteColumnDetails={deleteColumnDetails}
-        />
+        <ListColumns columns={orderedColumns} createNewColumn={createNewColumn} />
         <DragOverlay dropAnimation={CustomDropAnimation}>
           {!activeDragItemType && null}
           {activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.COLUMN && <Column column={activeDragItemData}></Column>}

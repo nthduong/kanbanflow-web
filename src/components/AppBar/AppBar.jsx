@@ -1,12 +1,7 @@
 import { useState } from "react";
+
 import Box from "@mui/material/Box";
-import ModeSelect from "~/components/ModeSelect/ModeSelect";
 import AppsIcon from "@mui/icons-material/Apps";
-import WorkSpaces from "./Menus/Workspaces";
-import Recent from "./Menus/Recent";
-import Starred from "./Menus/Starred";
-import Templates from "./Menus/Templates";
-import Profile from "./Menus/Profile";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -18,6 +13,14 @@ import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
+
+import ModeSelect from "~/components/ModeSelect/ModeSelect";
+import Profile from "~/components/AppBar/Menus/Profile";
+import WorkSpaces from "~/components/AppBar/Menus/Workspaces";
+import Recent from "~/components/AppBar/Menus/Recent";
+import Starred from "~/components/AppBar/Menus/Starred";
+import Templates from "~/components/AppBar/Menus/Templates";
+
 
 function AppBar() {
   const [inputSearch, setInputSearch] = useState("");

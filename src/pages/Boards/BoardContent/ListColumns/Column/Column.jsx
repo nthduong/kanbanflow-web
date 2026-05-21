@@ -1,4 +1,8 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { cloneDeep } from "lodash";
+
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
@@ -7,25 +11,33 @@ import Divider from "@mui/material/Divider";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Typography from "@mui/material/Typography";
-import ContentCut from "@mui/icons-material/ContentCut";
-import ContentCopy from "@mui/icons-material/ContentCopy";
-import ContentPaste from "@mui/icons-material/ContentPaste";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import DeleteIcon from "@mui/icons-material/Delete";
-import InventoryIcon from "@mui/icons-material/Inventory";
 import AddCardIcon from "@mui/icons-material/AddCard";
 import DragHandleIcon from "@mui/icons-material/DragHandle";
 import Tooltip from "@mui/material/Tooltip";
-import ListCards from "./ListCards/ListCards";
+import { useConfirm } from "material-ui-confirm";
+import TextField from "@mui/material/TextField";
+import CloseIcon from "@mui/icons-material/Close";
+import ContentCut from "@mui/icons-material/ContentCut";
+import ContentCopy from "@mui/icons-material/ContentCopy";
+import ContentPaste from "@mui/icons-material/ContentPaste";
+import InventoryIcon from "@mui/icons-material/Inventory";
+
 import { useDroppable } from "@dnd-kit/core";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import TextField from "@mui/material/TextField";
-import CloseIcon from "@mui/icons-material/Close";
-import { toast } from "react-toastify";
-import { useConfirm } from "material-ui-confirm";
 
-function Column({ column, createNewCard, deleteColumnDetails }) {
+import { updateCurrentActiveBoard, selectCurrentActiveBoard } from "~/redux/activeBoard/activeBoardSlice";
+
+import { createNewCardAPI, deleteColumnDetailsAPI } from "~/apis";
+
+import ListCards from "./ListCards/ListCards";
+
+function Column({ column }) {
+  const dispatch = useDispatch();
+  const board = useSelector(selectCurrentActiveBoard);
+
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: column._id,
     data: { ...column },
@@ -62,7 +74,7 @@ function Column({ column, createNewCard, deleteColumnDetails }) {
 
   const [newCardTitle, setNewCardTitle] = useState("");
 
-  const addNewCard = () => {
+  const addNewCard = async () => {
     if (!newCardTitle) {
       toast.error("Please enter card title");
       return;
@@ -72,7 +84,22 @@ function Column({ column, createNewCard, deleteColumnDetails }) {
       title: newCardTitle,
       columnId: column._id,
     };
-    createNewCard(newCardData);
+
+    const createCard = await createNewCardAPI({ ...newCardData, boardId: board._id });
+
+    const newBoard = cloneDeep(board);
+    const columnToUpdate = newBoard.columns.find((column) => column._id === createCard.columnId);
+
+    if (columnToUpdate.cards.some((card) => card.FE_PlaceholderCard)) {
+      columnToUpdate.cards = [createCard];
+      columnToUpdate.cardOrderIds = [createCard._id];
+    } else {
+      columnToUpdate.cards.push(createCard);
+      columnToUpdate.cardOrderIds.push(createCard._id);
+    }
+
+    dispatch(updateCurrentActiveBoard(newBoard));
+
     setNewCardTitle("");
     toggleOpenNewCardForm();
   };
@@ -86,7 +113,16 @@ function Column({ column, createNewCard, deleteColumnDetails }) {
         confirmationButtonProps: { color: "error", variant: "outlined" },
       });
 
-      await deleteColumnDetails(column._id);
+      const newBoard = { ...board };
+      newBoard.columns = newBoard.columns.filter((c) => c._id !== column._id);
+      newBoard.columnOrderIds = newBoard.columnOrderIds.filter((id) => id !== column._id);
+
+      dispatch(updateCurrentActiveBoard(newBoard));
+
+      const deleteColumn = await deleteColumnDetailsAPI(column._id);
+      if (deleteColumn?.deleteResult) {
+        toast.success(deleteColumn?.deleteResult);
+      }
     } catch (err) {
       () => {};
     }
