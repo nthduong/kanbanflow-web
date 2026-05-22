@@ -80,6 +80,7 @@ function ListColumns({ columns }) {
             }}
           >
             <Button
+              className="interceptor-loading"
               startIcon={<PostAddIcon />}
               sx={{
                 color: "#fff",
@@ -138,6 +139,7 @@ function ListColumns({ columns }) {
               }}
             >
               <Button
+                className="interceptor-loading"
                 onClick={addNewColumn}
                 variant="contained"
                 color="success"

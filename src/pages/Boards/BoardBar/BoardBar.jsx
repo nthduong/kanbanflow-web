@@ -30,8 +30,7 @@ function BoardBar({ board }) {
   return (
     <Box
       sx={{
-        backgroundColor: (theme) =>
-          theme.palette.mode === "light" ? "#87986a" : "#242424",
+        backgroundColor: (theme) => (theme.palette.mode === "light" ? "#87986a" : "#242424"),
         height: (theme) => theme.kanban.boardBarHeight,
         width: "100%",
         display: "flex",
@@ -39,17 +38,11 @@ function BoardBar({ board }) {
         justifyContent: "space-between",
         padding: "0 15px",
         borderBottom: "2px solid",
-        borderColor: (theme) =>
-          theme.palette.mode === "light" ? "#87986a" : "#1c1c1c",
+        borderColor: (theme) => (theme.palette.mode === "light" ? "#87986a" : "#1c1c1c"),
       }}
     >
       <Box sx={{ display: "flex", alignItems: "center" }}>
-        <Chip
-          clickable
-          icon={<DashboardIcon />}
-          label={board?.title}
-          sx={MENU_STYLE}
-        />
+        <Chip clickable icon={<DashboardIcon />} label={board?.title} sx={MENU_STYLE} />
         <Chip
           clickable
           icon={<VpnLockIcon />}
@@ -99,11 +92,11 @@ function BoardBar({ board }) {
             },
           }}
         >
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-          <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
-          <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
-          <Avatar alt="Agnes Walker" src="/static/images/avatar/4.jpg" />
-          <Avatar alt="Trevor Henderson" src="/static/images/avatar/5.jpg" />
+          <Avatar alt="Remy Sharp" src="" />
+          <Avatar alt="Travis Howard" src="" />
+          <Avatar alt="Cindy Baker" src="" />
+          <Avatar alt="Agnes Walker" src="" />
+          <Avatar alt="Trevor Henderson" src="" />
         </AvatarGroup>
       </Box>
     </Box>
