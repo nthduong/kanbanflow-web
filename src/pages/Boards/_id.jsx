@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { cloneDeep } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
@@ -12,11 +13,7 @@ import {
   selectCurrentActiveBoard,
 } from "~/redux/activeBoard/activeBoardSlice";
 
-import {
-  updateBoardDetailsAPI,
-  updateColumnDetailsAPI,
-  moveCardInTheDifferentColumnAPI,
-} from "~/apis";
+import { updateBoardDetailsAPI, updateColumnDetailsAPI, moveCardInTheDifferentColumnAPI } from "~/apis";
 
 import AppBar from "~/components/AppBar/AppBar";
 import BoardBar from "./BoardBar/BoardBar";
@@ -24,16 +21,16 @@ import BoardContent from "./BoardContent/BoardContent";
 
 // import { mockData } from "~/apis/mock-data";
 
-
 function Board() {
   const dispatch = useDispatch();
   const board = useSelector(selectCurrentActiveBoard);
+  const { boardId } = useParams();
 
   useEffect(() => {
-    const boardId = "69f6ca9d05498f694d2515d6";
+    // const boardId = "69f6ca9d05498f694d2515d6";
 
     dispatch(fetchBoardDetailsAPI(boardId));
-  }, [dispatch]);
+  }, [dispatch, boardId]);
 
   const moveColumns = (dndOrderedColumns) => {
     const dndOrderedColumnsIds = dndOrderedColumns.map((column) => column._id);
