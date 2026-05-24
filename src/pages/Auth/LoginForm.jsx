@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useSearchParams } from "react-router-dom";
 
 import { Card as MuiCard } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -18,12 +19,14 @@ import {
   EMAIL_RULE_MESSAGE,
   PASSWORD_RULE,
   PASSWORD_RULE_MESSAGE,
-  PASSWORD_CONFIRMATION_MESSAGE,
 } from "~/utils/validators";
 
 import FieldErrorAlert from "~/components/Form/FieldErrorAlert";
 
 function LoginForm() {
+  let [searchParams] = useSearchParams();
+
+  const { verifyEmail, registeredEmail } = Object.fromEntries([...searchParams]);
   const {
     register,
     handleSubmit,
@@ -75,23 +78,28 @@ function LoginForm() {
               padding: "0 1em",
             }}
           >
-            <Alert severity="success" sx={{ ".MuiAlert-message": { overflow: "hidden" } }}>
-              Your email&nbsp;
-              <Typography variant="span" sx={{ fontWeight: "bold", "&:hover": { color: "#fdba26" } }}>
-                duong@gmail.com
-              </Typography>
-              &nbsp;has been verified.
-              <br />
-              Now you can login to enjoy our services! Have a good day!
-            </Alert>
-            <Alert severity="info" sx={{ ".MuiAlert-message": { overflow: "hidden" } }}>
-              An email has been sent to&nbsp;
-              <Typography variant="span" sx={{ fontWeight: "bold", "&:hover": { color: "#fdba26" } }}>
-                duong@gmail.com
-              </Typography>
-              <br />
-              Please check and verify your account before logging in!
-            </Alert>
+            {verifyEmail && (
+              <Alert severity="success" sx={{ ".MuiAlert-message": { overflow: "hidden" } }}>
+                Your email&nbsp;
+                <Typography variant="span" sx={{ fontWeight: "bold", "&:hover": { color: "#fdba26" } }}>
+                  {verifyEmail}
+                </Typography>
+                &nbsp;has been verified.
+                <br />
+                Now you can login to enjoy our services! Have a good day!
+              </Alert>
+            )}
+
+            {registeredEmail && (
+              <Alert severity="info" sx={{ ".MuiAlert-message": { overflow: "hidden" } }}>
+                An email has been sent to&nbsp;
+                <Typography variant="span" sx={{ fontWeight: "bold", "&:hover": { color: "#fdba26" } }}>
+                  {registeredEmail}
+                </Typography>
+                <br />
+                Please check and verify your account before logging in!
+              </Alert>
+            )}
           </Box>
           <Box sx={{ padding: "0 1em 1em 1em" }}>
             <Box sx={{ marginTop: "1em" }}>

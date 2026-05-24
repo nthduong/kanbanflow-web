@@ -4,8 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import Container from "@mui/material/Container";
-import Box from "@mui/material/Box";
-import CircularProgress from "@mui/material/CircularProgress";
 
 import {
   fetchBoardDetailsAPI,
@@ -18,6 +16,7 @@ import { updateBoardDetailsAPI, updateColumnDetailsAPI, moveCardInTheDifferentCo
 import AppBar from "~/components/AppBar/AppBar";
 import BoardBar from "./BoardBar/BoardBar";
 import BoardContent from "./BoardContent/BoardContent";
+import PageLoadingSpinner from "~/components/Loading/PageLoadingSpinner";
 
 // import { mockData } from "~/apis/mock-data";
 
@@ -78,21 +77,7 @@ function Board() {
   };
 
   if (!board) {
-    return (
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-          width: "100vw",
-          gap: 2,
-        }}
-      >
-        <CircularProgress />
-        loading...
-      </Box>
-    );
+    return <PageLoadingSpinner caption="Loading Board..." />;
   }
 
   return (

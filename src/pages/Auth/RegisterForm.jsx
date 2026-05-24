@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 import { Card as MuiCard } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -20,9 +21,12 @@ import {
   PASSWORD_CONFIRMATION_MESSAGE,
 } from "~/utils/validators";
 
+import { registerUserAPI } from "~/apis";
+
 import FieldErrorAlert from "~/components/Form/FieldErrorAlert";
 
 function RegisterForm() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -31,7 +35,11 @@ function RegisterForm() {
   } = useForm();
 
   const submitRegister = (data) => {
-    console.log(data);
+    const { email, password } = data;
+
+    toast.promise(registerUserAPI({ email, password }), { pending: "Registration is in progress..." }).then((user) => {
+      navigate(`/login?registeredEmail=${user.email}`);
+    });
   };
 
   return (
