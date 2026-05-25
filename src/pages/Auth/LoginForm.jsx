@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useSearchParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loginUserAPI } from "~/redux/user/userSlice";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import { Card as MuiCard } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -24,6 +28,8 @@ import {
 import FieldErrorAlert from "~/components/Form/FieldErrorAlert";
 
 function LoginForm() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   let [searchParams] = useSearchParams();
 
   const { verifyEmail, registeredEmail } = Object.fromEntries([...searchParams]);
@@ -33,8 +39,16 @@ function LoginForm() {
     formState: { errors },
   } = useForm();
 
-  const submitLogIn = (data) => {
-    console.log(data);
+  const submitLogIn = async (data) => {
+    const { email, password } = data;
+
+    const res = await toast.promise(dispatch(loginUserAPI({ email, password })), {
+      pending: "Logging in...",
+    });
+
+    if (!res?.error) {
+      navigate("/");
+    }
   };
 
   return (
@@ -67,7 +81,7 @@ function LoginForm() {
               color: (theme) => theme.palette.grey[500],
             }}
           >
-            Author: Duong
+            Welcome back
           </Box>
           <Box
             sx={{
@@ -152,7 +166,7 @@ function LoginForm() {
             </Button>
           </CardActions>
           <Box sx={{ padding: "0 1em 1em 1em", textAlign: "center" }}>
-            <Typography>New to Trello MERN Stack Advanced?</Typography>
+            <Typography>Don&apos;t have an account?</Typography>
             <Link to="/register" style={{ textDecoration: "none" }}>
               <Typography sx={{ color: "primary.main", "&:hover": { color: "#ffbb39" } }}>Create account!</Typography>
             </Link>
