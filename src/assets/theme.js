@@ -93,6 +93,13 @@ const theme = extendTheme({
         },
       },
     },
+    MuiDialog: {
+      styleOverrides: {
+        paper: {
+          borderRadius: 10,
+        },
+      },
+    },
   },
 });
 

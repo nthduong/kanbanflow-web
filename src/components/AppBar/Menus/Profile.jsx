@@ -1,4 +1,7 @@
 import * as React from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { useConfirm } from "material-ui-confirm";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Divider from "@mui/material/Divider";
@@ -10,7 +13,12 @@ import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 
-function Recent() {
+import { logoutUserAPI, selectCurrentUser } from "~/redux/user/userSlice";
+
+function Profile() {
+  const dispatch = useDispatch();
+  const currentUser = useSelector(selectCurrentUser);
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -18,6 +26,16 @@ function Recent() {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const confirmLogout = useConfirm();
+  const handleLogout = async () => {
+    await confirmLogout({
+      title: "Logout of your account?",
+      confirmationText: "Logout",
+      confirmationButtonProps: { color: "error", variant: "outlined" },
+    });
+
+    dispatch(logoutUserAPI());
   };
 
   return (
@@ -31,7 +49,7 @@ function Recent() {
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
         >
-          <Avatar sx={{ width: 30, height: 30, fontSize: "14px" }}>M</Avatar>
+          <Avatar sx={{ width: 30, height: 30, fontSize: "14px" }} src={currentUser?.avatar} />
         </IconButton>
       </Tooltip>
       <Menu
@@ -44,26 +62,30 @@ function Recent() {
         }}
       >
         <MenuItem onClick={handleClose}>
-          <Avatar sx={{ width: 30, height: 30, marginRight: "8px" }} /> Profile
+          <Avatar sx={{ width: 30, height: 30, marginRight: "8px" }} src={currentUser?.avatar} /> Profile
         </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <Avatar sx={{ width: 30, height: 30, marginRight: "8px" }} /> My
-          account
-        </MenuItem>
+        {/* <MenuItem onClick={handleClose}>
+          <Avatar sx={{ width: 30, height: 30, marginRight: "8px" }} /> My account
+        </MenuItem> */}
         <Divider />
-        <MenuItem onClick={handleClose}>
+        {/* <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <PersonAdd fontSize="small" />
           </ListItemIcon>
           Add another account
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
+        </MenuItem> */}
+        {/* <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
           Settings
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
+        </MenuItem> */}
+        <MenuItem
+          onClick={() => {
+            handleClose();
+            handleLogout();
+          }}
+        >
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
@@ -74,4 +96,4 @@ function Recent() {
   );
 }
 
-export default Recent;
+export default Profile;
