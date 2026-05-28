@@ -1,6 +1,14 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 import { interceptorLoadingElements } from "~/utils/formatters";
+import { refreshTokenAPI } from "~/apis";
+import { logoutUserAPI } from "~/redux/user/userSlice";
+
+let axiosReduxStore;
+export const injectStore = (mainStore) => {
+  axiosReduxStore = mainStore;
+};
+
 const authorizedAxiosInstance = axios.create();
 
 authorizedAxiosInstance.defaults.timeout = 1000 * 60 * 10;
@@ -16,6 +24,8 @@ authorizedAxiosInstance.interceptors.request.use(
   },
 );
 
+let refreshTokenPromise = null;
+
 authorizedAxiosInstance.interceptors.response.use(
   (response) => {
     interceptorLoadingElements(false);
@@ -23,6 +33,34 @@ authorizedAxiosInstance.interceptors.response.use(
   },
   (error) => {
     interceptorLoadingElements(false);
+
+    if (error.response?.status === 401) {
+      axiosReduxStore.dispatch(logoutUserAPI(false));
+    }
+
+    const originalRequests = error.config;
+    if (error.response?.status === 410 && !originalRequests._retry) {
+      originalRequests._retry = true;
+
+      if (!refreshTokenPromise) {
+        refreshTokenPromise = refreshTokenAPI()
+          .then((data) => {
+            return data.accessToken;
+          })
+          .catch((_error) => {
+            axiosReduxStore.dispatch(logoutUserAPI(false));
+            return Promise.reject(_error);
+          })
+          .finally(() => {
+            refreshTokenPromise = null;
+          });
+      }
+
+      return refreshTokenPromise.then((accessToken) => {
+        // Retry the initial APIs that failed
+        return authorizedAxiosInstance(originalRequests);
+      });
+    }
 
     let errorMessage = error.message;
 

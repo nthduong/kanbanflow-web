@@ -8,7 +8,12 @@ import { selectCurrentUser } from "~/redux/user/userSlice";
 import { useSelector } from "react-redux";
 
 const ProtectedRoutes = ({ user }) => {
-  if (!user) return <Navigate to="/login" />;
+  if (!user) return <Navigate to="/login" replace={true} />;
+  return <Outlet />;
+};
+
+const UnauthorizedRoutes = ({ user }) => {
+  if (user) return <Navigate to="/" replace={true} />;
   return <Outlet />;
 };
 
@@ -20,8 +25,10 @@ function App() {
       <Route element={<ProtectedRoutes user={currentUser} />}>
         <Route path="/boards/:boardId" element={<Board />} />
       </Route>
-      <Route path="/login" element={<Auth />} />
-      <Route path="/register" element={<Auth />} />
+      <Route element={<UnauthorizedRoutes user={currentUser} />}>
+        <Route path="/login" element={<Auth />} />
+        <Route path="/register" element={<Auth />} />
+      </Route>
       <Route path="/account/verification" element={<AccountVerification />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
