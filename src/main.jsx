@@ -8,6 +8,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { ConfirmProvider } from "material-ui-confirm";
+import GlobalStyles from "@mui/material/GlobalStyles";
 
 import { store } from "~/redux/store";
 import { Provider } from "react-redux";
@@ -35,6 +36,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               buttonOrder: ["confirm", "cancel"],
             }}
           >
+            <GlobalStyles styles={{ a: { textDecoration: "none" } }} />
             <CssBaseline />
             <App />
             <ToastContainer progressStyle={{ height: "4px" }} theme="light" />

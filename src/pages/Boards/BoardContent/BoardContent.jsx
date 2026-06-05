@@ -311,7 +311,7 @@ function BoardContent({ board, createNewColumn, moveColumns, moveCardInTheSameCo
     >
       <Box
         sx={{
-          backgroundColor: (theme) => (theme.palette.mode === "light" ? "#e9f5db" : "#242424"),
+          backgroundColor: (theme) => (theme.palette.mode === "light" ? "#f2f7ec" : "#333"),
           height: (theme) => theme.kanban.boardContentHeight,
           width: "100%",
           display: "flex",

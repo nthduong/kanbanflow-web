@@ -136,7 +136,7 @@ function Column({ column }) {
           maxWidth: "300px",
           display: "flex",
           flexDirection: "column",
-          backgroundColor: (theme) => (theme.palette.mode === "light" ? "#AEB784" : "#1c1c1c"),
+          backgroundColor: (theme) => (theme.palette.mode === "light" ? "#87986a" : "#1c1c1c"),
           color: "#fff",
           borderRadius: "10px",
           height: "fit-content",

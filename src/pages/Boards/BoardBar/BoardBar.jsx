@@ -38,7 +38,7 @@ function BoardBar({ board }) {
         justifyContent: "space-between",
         padding: "0 15px",
         borderBottom: "2px solid",
-        borderColor: (theme) => (theme.palette.mode === "light" ? "#87986a" : "#1c1c1c"),
+        borderColor: (theme) => (theme.palette.mode === "light" ? "#87986a" : "#242424"),
       }}
     >
       <Box sx={{ display: "flex", alignItems: "center" }}>

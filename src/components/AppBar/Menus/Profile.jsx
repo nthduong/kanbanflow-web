@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { useConfirm } from "material-ui-confirm";
 import Menu from "@mui/material/Menu";
@@ -61,9 +62,11 @@ function Profile() {
           "aria-labelledby": "basic-button-profile",
         }}
       >
-        <MenuItem onClick={handleClose}>
-          <Avatar sx={{ width: 30, height: 30, marginRight: "8px" }} src={currentUser?.avatar} /> Profile
-        </MenuItem>
+        <Link to={"/settings/account"} style={{ color: "inherit" }}>
+          <MenuItem onClick={handleClose}>
+            <Avatar sx={{ width: 30, height: 30, marginRight: "8px" }} src={currentUser?.avatar} /> Profile
+          </MenuItem>
+        </Link>
         {/* <MenuItem onClick={handleClose}>
           <Avatar sx={{ width: 30, height: 30, marginRight: "8px" }} /> My account
         </MenuItem> */}

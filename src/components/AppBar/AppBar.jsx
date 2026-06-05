@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import AppsIcon from "@mui/icons-material/Apps";
@@ -20,7 +21,6 @@ import WorkSpaces from "~/components/AppBar/Menus/Workspaces";
 import Recent from "~/components/AppBar/Menus/Recent";
 import Starred from "~/components/AppBar/Menus/Starred";
 import Templates from "~/components/AppBar/Menus/Templates";
-
 
 function AppBar() {
   const [inputSearch, setInputSearch] = useState("");
@@ -46,9 +46,11 @@ function AppBar() {
         }}
       >
         <AppsIcon sx={{ color: "#fff" }} />
-        <Typography variant="span" sx={{ fontSize: "14px", fontWeight: "500", color: "#fff" }}>
-          Kanban Flow
-        </Typography>
+        <Link to="/">
+          <Typography variant="span" sx={{ fontSize: "14px", fontWeight: "500", color: "#fff" }}>
+            Kanban Flow
+          </Typography>
+        </Link>
 
         {/* <Box sx={{ display: { xs: "none", md: "flex" } }}>
           <WorkSpaces />
