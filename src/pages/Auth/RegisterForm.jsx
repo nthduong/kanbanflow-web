@@ -45,9 +45,13 @@ function RegisterForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(submitRegister)}>
+    <Box
+      component="form"
+      sx={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}
+      onSubmit={handleSubmit(submitRegister)}
+    >
       <Zoom in={true} style={{ transitionDelay: "200ms" }}>
-        <MuiCard sx={{ minWidth: 380, maxWidth: 380, borderRadius: "10px" }}>
+        <MuiCard sx={{ margin: "0px 20px", maxWidth: 380, width: "100%", borderRadius: "10px" }}>
           <Box
             sx={{
               margin: "1em",
@@ -144,7 +148,7 @@ function RegisterForm() {
           </Box>
         </MuiCard>
       </Zoom>
-    </form>
+    </Box>
   );
 }
 

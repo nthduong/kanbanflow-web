@@ -52,12 +52,17 @@ function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(submitLogIn)}>
+    <Box
+      component="form"
+      sx={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}
+      onSubmit={handleSubmit(submitLogIn)}
+    >
       <Zoom in={true} style={{ transitionDelay: "200ms" }}>
         <MuiCard
           sx={{
-            minWidth: 380,
+            margin: "0px 20px",
             maxWidth: 380,
+            width: "100%",
             borderRadius: "10px",
           }}
         >
@@ -173,7 +178,7 @@ function LoginForm() {
           </Box>
         </MuiCard>
       </Zoom>
-    </form>
+    </Box>
   );
 }
 

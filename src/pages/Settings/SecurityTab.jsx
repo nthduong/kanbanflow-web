@@ -66,6 +66,7 @@ function SecurityTab() {
       <Box
         sx={{
           maxWidth: "1200px",
+          width: "100%",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -76,8 +77,8 @@ function SecurityTab() {
         <Box>
           <Typography variant="h5">Security Dashboard</Typography>
         </Box>
-        <form onSubmit={handleSubmit(submitChangePassword)}>
-          <Box sx={{ width: "400px", display: "flex", flexDirection: "column", gap: 2 }}>
+        <Box component="form" sx={{ maxWidth: "400px", width: "100%" }} onSubmit={handleSubmit(submitChangePassword)}>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
             <Box>
               <TextField
                 fullWidth
@@ -158,7 +159,7 @@ function SecurityTab() {
               </Button>
             </Box>
           </Box>
-        </form>
+        </Box>
       </Box>
     </Box>
   );

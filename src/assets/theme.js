@@ -55,6 +55,20 @@ const theme = extendTheme({
         },
       },
     },
+    MuiFormControl: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          [theme.breakpoints.down("sm")]: {
+            "& .MuiInputBase-input": {
+              fontSize: "16px",
+            },
+            "& .MuiFormLabel-root": {
+              fontSize: "16px",
+            },
+          },
+        }),
+      },
+    },
     MuiTypography: {
       styleOverrides: {
         root: {
