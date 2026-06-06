@@ -52,7 +52,6 @@ function AccountTab() {
 
     if (displayName === currentUser?.displayName) return;
 
-    // Gọi API...
     const res = await toast.promise(dispatch(updateUserAPI({ displayName })), {
       pending: "Updating...",
     });
@@ -62,7 +61,7 @@ function AccountTab() {
     }
   };
 
-  const uploadAvatar = (e) => {
+  const uploadAvatar = async (e) => {
     const error = singleFileValidator(e.target?.files[0]);
     if (error) {
       toast.error(error);
@@ -71,9 +70,19 @@ function AccountTab() {
 
     let reqData = new FormData();
     reqData.append("avatar", e.target?.files[0]);
-    for (const value of reqData.values()) {
-      console.log("reqData Value: ", value);
+    // for (const value of reqData.values()) {
+    //   console.log("reqData Value: ", value);
+    // }
+
+    const res = await toast.promise(dispatch(updateUserAPI(reqData)), {
+      pending: "Updating...",
+    });
+
+    if (!res?.error) {
+      toast.success("User updating successfully!");
     }
+
+    e.target.value = "";
   };
 
   return (
