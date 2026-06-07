@@ -14,8 +14,8 @@ import {
 import { updateBoardDetailsAPI, updateColumnDetailsAPI, moveCardInTheDifferentColumnAPI } from "~/apis";
 
 import AppBar from "~/components/AppBar/AppBar";
-import BoardBar from "./BoardBar/BoardBar";
-import BoardContent from "./BoardContent/BoardContent";
+import BoardBar from "~/pages/Boards/BoardBar/BoardBar";
+import BoardContent from "~/pages/Boards/BoardContent/BoardContent";
 import PageLoadingSpinner from "~/components/Loading/PageLoadingSpinner";
 
 // import { mockData } from "~/apis/mock-data";

@@ -34,13 +34,13 @@ function Card({ card }) {
       {...attributes}
       {...listeners}
       sx={{
-        borderRadius: "10px",
+        borderRadius: "6px",
         flexShrink: "0",
         opacity: card.FE_PlaceholderCard ? "0" : "1",
         pointerEvents: card.FE_PlaceholderCard ? "none" : "unset",
         position: card.FE_PlaceholderCard ? "fixed" : "unset",
         backgroundColor: (theme) => (theme.palette.mode === "light" ? "#fff" : "#1c1c1c"),
-        boxShadow: "0px 1px 1px #1E1F2140, 0px 0px 1px #1E1F214F",
+        boxShadow: "0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12)",
         border: "2px solid transparent",
         "&:hover": { borderColor: (theme) => theme.palette.primary.main },
       }}

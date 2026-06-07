@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
-import Card from "./Card/Card";
+import Card from "~/pages/Boards/BoardContent/ListColumns/Column/ListCards/Card/Card";
 
 function ListCards({ cards }) {
   return (
@@ -10,7 +10,7 @@ function ListCards({ cards }) {
           display: "flex",
           flexDirection: "column",
           gap: "10px",
-          padding: "0px 5px",
+          padding: "0px 5px 3px 5px",
           margin: "0 5px",
           overflowY: "auto",
           overflowX: "hidden",

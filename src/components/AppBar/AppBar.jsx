@@ -14,6 +14,7 @@ import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
+import ViewKanbanIcon from "@mui/icons-material/ViewKanban";
 
 import ModeSelect from "~/components/ModeSelect/ModeSelect";
 import Profile from "~/components/AppBar/Menus/Profile";
@@ -21,6 +22,7 @@ import WorkSpaces from "~/components/AppBar/Menus/Workspaces";
 import Recent from "~/components/AppBar/Menus/Recent";
 import Starred from "~/components/AppBar/Menus/Starred";
 import Templates from "~/components/AppBar/Menus/Templates";
+import logo from "~/assets/img/logo.png";
 
 function AppBar() {
   const [inputSearch, setInputSearch] = useState("");
@@ -45,11 +47,16 @@ function AppBar() {
           gap: 2,
         }}
       >
-        <AppsIcon sx={{ color: "#fff" }} />
+        <Link to="/boards">
+          <AppsIcon sx={{ color: "#fff", verticalAlign: "middle" }} />
+        </Link>
         <Link to="/">
-          <Typography variant="span" sx={{ fontSize: "14px", fontWeight: "500", color: "#fff" }}>
-            Kanban Flow
-          </Typography>
+          <Box sx={{ display: "flex", alignItems: "center", gap: "5px" }}>
+            <ViewKanbanIcon sx={{ color: "#fff" }} />
+            <Typography variant="span" sx={{ fontSize: "20px", fontWeight: "700", color: "#fff" }}>
+              Kanban Flow
+            </Typography>
+          </Box>
         </Link>
 
         {/* <Box sx={{ display: { xs: "none", md: "flex" } }}>
@@ -58,7 +65,7 @@ function AppBar() {
           <Starred />
           <Templates />
         </Box> */}
-        <Button
+        {/* <Button
           variant="outlined"
           startIcon={<LibraryAddIcon />}
           sx={{
@@ -70,7 +77,7 @@ function AppBar() {
           }}
         >
           Create
-        </Button>
+        </Button> */}
       </Box>
       <Box
         sx={{

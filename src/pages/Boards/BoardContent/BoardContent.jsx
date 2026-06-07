@@ -22,9 +22,9 @@ import {
 
 import { generatePlaceholderCard } from "~/utils/formatters";
 
-import ListColumns from "./ListColumns/ListColumns";
-import Column from "./ListColumns/Column/Column";
-import Card from "./ListColumns/Column/ListCards/Card/Card";
+import ListColumns from "~/pages/Boards/BoardContent/ListColumns/ListColumns";
+import Column from "~/pages/Boards/BoardContent/ListColumns/Column/Column";
+import Card from "~/pages/Boards/BoardContent/ListColumns/Column/ListCards/Card/Card";
 
 const ACTIVE_DRAG_ITEM_TYPE = {
   COLUMN: "ACTIVE_DRAG_ITEM_TYPE_COLUMN",

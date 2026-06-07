@@ -32,7 +32,7 @@ import { updateCurrentActiveBoard, selectCurrentActiveBoard } from "~/redux/acti
 
 import { createNewCardAPI, deleteColumnDetailsAPI } from "~/apis";
 
-import ListCards from "./ListCards/ListCards";
+import ListCards from "~/pages/Boards/BoardContent/ListColumns/Column/ListCards/ListCards";
 
 function Column({ column }) {
   const dispatch = useDispatch();
@@ -138,6 +138,8 @@ function Column({ column }) {
           flexDirection: "column",
           backgroundColor: (theme) => (theme.palette.mode === "light" ? "#87986a" : "#1c1c1c"),
           color: "#fff",
+          boxShadow:
+            "0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)",
           borderRadius: "10px",
           height: "fit-content",
           mr: 2,

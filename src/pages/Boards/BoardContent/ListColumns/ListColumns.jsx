@@ -17,7 +17,7 @@ import { createNewColumnAPI } from "~/apis";
 
 import { generatePlaceholderCard } from "~/utils/formatters";
 
-import Column from "./Column/Column";
+import Column from "~/pages/Boards/BoardContent/ListColumns/Column/Column";
 
 function ListColumns({ columns }) {
   const dispatch = useDispatch();

@@ -15,7 +15,7 @@ function ModeSelect() {
   };
   return (
     <FormControl
-      sx={{ m: 1, minWidth: 120, display: { xs: "none", lg: "flex" } }}
+      sx={{ m: 1, minWidth: 120, display: { xs: "none", sm: "flex" } }}
       size="small"
     >
       <InputLabel
