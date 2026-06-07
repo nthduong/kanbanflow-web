@@ -30,9 +30,10 @@ import { CSS } from "@dnd-kit/utilities";
 
 import { updateCurrentActiveBoard, selectCurrentActiveBoard } from "~/redux/activeBoard/activeBoardSlice";
 
-import { createNewCardAPI, deleteColumnDetailsAPI } from "~/apis";
+import { createNewCardAPI, deleteColumnDetailsAPI, updateColumnDetailsAPI } from "~/apis";
 
 import ListCards from "~/pages/Boards/BoardContent/ListColumns/Column/ListCards/ListCards";
+import ToggleFocusInput from "~/components/Form/ToggleFocusInput";
 
 function Column({ column }) {
   const dispatch = useDispatch();
@@ -127,6 +128,17 @@ function Column({ column }) {
       () => {};
     }
   };
+
+  const onUpdateColumnTitle = async (newTitle) => {
+    await updateColumnDetailsAPI(column._id, { title: newTitle });
+
+    const newBoard = cloneDeep(board);
+    const columnToUpdate = newBoard.columns.find((c) => c._id === column._id);
+
+    if (columnToUpdate) columnToUpdate.title = newTitle;
+
+    dispatch(updateCurrentActiveBoard(newBoard));
+  };
   return (
     <div ref={setNodeRef} style={dndkitColumnStyle} {...attributes}>
       <Box
@@ -157,16 +169,7 @@ function Column({ column }) {
             height: (theme) => theme.kanban.cardHeaderHeight,
           }}
         >
-          <Typography
-            variant="h6"
-            sx={{
-              fontWeight: "500",
-              cursor: "pointer",
-              fontSize: "1rem",
-            }}
-          >
-            {column?.title}
-          </Typography>
+          <ToggleFocusInput value={column?.title} onUpdateColumnTitle={onUpdateColumnTitle} data-no-dnd={true} />
 
           <KeyboardArrowDownIcon
             style={{
