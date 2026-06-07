@@ -23,7 +23,7 @@ import { red } from "@mui/material/colors";
 
 import { fetchBoardAPI } from "~/apis";
 import { DEFAULT_ITEMS_PER_PAGE, DEFAULT_PAGE } from "~/utils/constants";
-import SidebarCreateBoardModal from "~/pages/Boards/create"
+import SidebarCreateBoardModal from "~/pages/Boards/create";
 import AppBar from "~/components/AppBar/AppBar";
 import PageLoadingSpinner from "~/components/Loading/PageLoadingSpinner";
 
@@ -37,7 +37,6 @@ const SidebarItem = styled(Box)(({ theme }) => ({
   borderRadius: "8px",
   "&:hover": {
     color: theme.palette.mode === "dark" ? "#fff" : "#58732c",
-    backgroundColor: theme.palette.mode === "dark" ? "#333333" : "#f2fae2",
   },
   "&.active": {
     color: theme.palette.mode === "dark" ? "#fff" : "#58732c",
@@ -53,12 +52,18 @@ function Boards() {
   const query = new URLSearchParams(location.search);
   const page = parseInt(query.get("page") || "1", 10);
 
+  const updateStateData = (res) => {
+    setBoards(res.boards || []);
+    setTotalBoards(res.totalBoards || 0);
+  };
+
   useEffect(() => {
-    fetchBoardAPI(location.search).then((res) => {
-      setBoards(res.boards || []);
-      setTotalBoards(res.totalBoards || 0);
-    });
+    fetchBoardAPI(location.search).then(updateStateData);
   }, [location.search]);
+
+  const afterCreateNewBoard = () => {
+    fetchBoardAPI(location.search).then(updateStateData);
+  };
 
   if (!boards) {
     return <PageLoadingSpinner caption="Loading Boards..." />;
@@ -86,7 +91,7 @@ function Boards() {
             </Stack>
             <Divider sx={{ my: 1 }} />
             <Stack direction="column" spacing={1}>
-              <SidebarCreateBoardModal />
+              <SidebarCreateBoardModal afterCreateNewBoard={afterCreateNewBoard} />
             </Stack>
           </Grid>
 

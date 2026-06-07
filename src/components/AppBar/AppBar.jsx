@@ -50,7 +50,7 @@ function AppBar() {
         <Link to="/boards">
           <AppsIcon sx={{ color: "#fff", verticalAlign: "middle" }} />
         </Link>
-        <Link to="/">
+        <Link to="/boards">
           <Box sx={{ display: "flex", alignItems: "center", gap: "5px" }}>
             <ViewKanbanIcon sx={{ color: "#fff" }} />
             <Typography variant="span" sx={{ fontSize: "20px", fontWeight: "700", color: "#fff" }}>

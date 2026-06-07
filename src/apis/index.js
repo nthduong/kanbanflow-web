@@ -4,10 +4,10 @@ import { API_ROOT } from "~/utils/constants";
 
 // Board APIs
 
-// export const fetchBoardDetailsAPI = async (boardId) => {
-//   const response = await axios.get(`${API_ROOT}/v1/boards/${boardId}`);
-//   return response.data;
-// };
+export const createNewBoardAPI = async (data) => {
+  const response = await authorizedAxiosInstance.post(`${API_ROOT}/v1/boards`, data);
+  return response.data;
+};
 
 export const fetchBoardAPI = async (searchPage) => {
   const response = await authorizedAxiosInstance.get(`${API_ROOT}/v1/boards${searchPage}`);

@@ -9,10 +9,18 @@ const initialState = {
   currentActiveBoard: null,
 };
 
-export const fetchBoardDetailsAPI = createAsyncThunk("activeBoard/fetchBoardDetailsAPI", async (boardId) => {
-  const response = await authorizedAxiosInstance.get(`${API_ROOT}/v1/boards/${boardId}`);
-  return response.data;
-});
+export const fetchBoardDetailsAPI = createAsyncThunk(
+  "activeBoard/fetchBoardDetailsAPI",
+  async (boardId, { rejectWithValue }) => {
+    try {
+      const response = await authorizedAxiosInstance.get(`${API_ROOT}/v1/boards/${boardId}`);
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
+  },
+);
 
 export const activeBoardSlice = createSlice({
   name: "activeBoard",

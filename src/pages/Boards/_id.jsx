@@ -17,19 +17,27 @@ import AppBar from "~/components/AppBar/AppBar";
 import BoardBar from "~/pages/Boards/BoardBar/BoardBar";
 import BoardContent from "~/pages/Boards/BoardContent/BoardContent";
 import PageLoadingSpinner from "~/components/Loading/PageLoadingSpinner";
+import { useNavigate } from "react-router-dom";
 
 // import { mockData } from "~/apis/mock-data";
 
 function Board() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const board = useSelector(selectCurrentActiveBoard);
   const { boardId } = useParams();
 
   useEffect(() => {
-    // const boardId = "69f6ca9d05498f694d2515d6";
+    const fetchBoard = async () => {
+      try {
+        await dispatch(fetchBoardDetailsAPI(boardId)).unwrap();
+      } catch (error) {
+        navigate("/");
+      }
+    };
 
-    dispatch(fetchBoardDetailsAPI(boardId));
-  }, [dispatch, boardId]);
+    fetchBoard();
+  }, [dispatch, boardId, navigate]);
 
   const moveColumns = (dndOrderedColumns) => {
     const dndOrderedColumnsIds = dndOrderedColumns.map((column) => column._id);

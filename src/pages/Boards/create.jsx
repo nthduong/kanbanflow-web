@@ -18,6 +18,7 @@ import { styled } from "@mui/material/styles";
 
 import { FIELD_REQUIRED_MESSAGE } from "~/utils/validators";
 import FieldErrorAlert from "~/components/Form/FieldErrorAlert";
+import { createNewBoardAPI } from "~/apis";
 
 const SidebarItem = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -29,7 +30,6 @@ const SidebarItem = styled(Box)(({ theme }) => ({
   borderRadius: "8px",
   "&:hover": {
     color: theme.palette.mode === "dark" ? "#fff" : "#58732c",
-    backgroundColor: theme.palette.mode === "dark" ? "#333333" : "#f2fae2",
   },
   "&.active": {
     color: theme.palette.mode === "dark" ? "#fff" : "#58732c",
@@ -42,7 +42,7 @@ const BOARD_TYPES = {
   PRIVATE: "private",
 };
 
-function SidebarCreateBoardModal() {
+function SidebarCreateBoardModal({ afterCreateNewBoard }) {
   const {
     control,
     register,
@@ -55,15 +55,16 @@ function SidebarCreateBoardModal() {
   const handleOpenModal = () => setIsOpen(true);
   const handleCloseModal = () => {
     setIsOpen(false);
-    // Reset lại toàn bộ form khi đóng Modal
     reset();
   };
 
-  const submitCreateNewBoard = (data) => {
+  const submitCreateNewBoard = async (data) => {
     const { title, description, type } = data;
-    console.log("Board title: ", title);
-    console.log("Board description: ", description);
-    console.log("Board type: ", type);
+
+    await createNewBoardAPI({ title, description, type });
+
+    handleCloseModal();
+    afterCreateNewBoard();
   };
 
   return (
@@ -73,12 +74,7 @@ function SidebarCreateBoardModal() {
         Create a new board
       </SidebarItem>
 
-      <Modal
-        open={isOpen}
-        // onClose={handleCloseModal}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+      <Modal open={isOpen} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
         <Box
           sx={{
             position: "absolute",
@@ -103,7 +99,7 @@ function SidebarCreateBoardModal() {
               cursor: "pointer",
             }}
           >
-            <CancelIcon  onClick={handleCloseModal} />
+            <CancelIcon onClick={handleCloseModal} />
           </Box>
           <Box id="modal-modal-title" sx={{ display: "flex", alignItems: "center", gap: 1 }}>
             <LibraryAddIcon />
