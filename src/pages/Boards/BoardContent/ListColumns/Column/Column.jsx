@@ -285,6 +285,12 @@ function Column({ column }) {
           ) : (
             <Box sx={{ display: "flex", gap: 1 }}>
               <TextField
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    addNewCard();
+                  }
+                }}
                 label="Enter Card title..."
                 type="text"
                 size="small"

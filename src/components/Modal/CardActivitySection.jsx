@@ -39,11 +39,11 @@ function CardActivitySection() {
         />
       </Box>
 
-      {[...Array(0)].length === 0 && (
+      {/* {[...Array(0)].length === 0 && (
         <Typography sx={{ pl: "45px", fontSize: "14px", fontWeight: "500", color: "#b1b1b1" }}>
           No activity found!
         </Typography>
-      )}
+      )} */}
       {[...Array(1)].map((_, index) => (
         <Box sx={{ display: "flex", gap: 1, width: "100%", mb: 1.5 }} key={index}>
           <Tooltip title="ThaiDuong">
