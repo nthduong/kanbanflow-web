@@ -11,6 +11,7 @@ import Button from "@mui/material/Button";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { useTheme, useMediaQuery } from "@mui/material";
 import { capitalizeFirstLetter } from "~/utils/formatters";
+import BoardUserGroup from "~/pages/Boards/BoardBar/BoardUserGroup";
 
 const MENU_STYLE = {
   color: "#fff",
@@ -22,6 +23,7 @@ const MENU_STYLE = {
   "&:hover": {
     backgroundColor: "",
   },
+  cursor: "initial",
 };
 
 function BoardBar({ board }) {
@@ -36,7 +38,7 @@ function BoardBar({ board }) {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        padding: "0 15px",
+        padding: "0 15px 0 5px",
         borderBottom: "2px solid",
         borderColor: (theme) => (theme.palette.mode === "light" ? "#87986a" : "#242424"),
       }}
@@ -81,23 +83,7 @@ function BoardBar({ board }) {
         >
           Invite
         </Button>
-
-        <AvatarGroup
-          max={isMdUp ? 4 : 2}
-          sx={{
-            "& .MuiAvatar-root": {
-              height: 30,
-              width: 30,
-              fontSize: "14px",
-            },
-          }}
-        >
-          <Avatar alt="Remy Sharp" src="" />
-          <Avatar alt="Travis Howard" src="" />
-          <Avatar alt="Cindy Baker" src="" />
-          <Avatar alt="Agnes Walker" src="" />
-          <Avatar alt="Trevor Henderson" src="" />
-        </AvatarGroup>
+        <BoardUserGroup />
       </Box>
     </Box>
   );

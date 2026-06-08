@@ -1,7 +1,15 @@
 import { useState } from "react";
 import TextField from "@mui/material/TextField";
 
-function ToggleFocusInput({ value, onUpdateColumnTitle, inputFontSize = "16px", ...props }) {
+function ToggleFocusInput({
+  value,
+  onChangedValue,
+  inputFontSize = "16px",
+  lightBackground = "#f1f2f4",
+  darkBackground = "#64656a",
+  textColor,
+  ...props
+}) {
   const [inputValue, setInputValue] = useState(value);
 
   const triggerBlur = () => {
@@ -12,7 +20,7 @@ function ToggleFocusInput({ value, onUpdateColumnTitle, inputFontSize = "16px", 
       return;
     }
 
-    onUpdateColumnTitle(inputValue);
+    onChangedValue(inputValue);
   };
 
   return (
@@ -30,7 +38,11 @@ function ToggleFocusInput({ value, onUpdateColumnTitle, inputFontSize = "16px", 
       sx={{
         marginRight: "10px",
         "& label": {},
-        "& input": { fontSize: inputFontSize, fontWeight: "bold", color: "#fff" },
+        "& input": {
+          fontSize: inputFontSize,
+          fontWeight: "bold",
+          color: (theme) => textColor || theme.palette.text.primary,
+        },
         "& .MuiOutlinedInput-root": {
           backgroundColor: "transparent",
           "& fieldset": { borderColor: "transparent" },
@@ -42,7 +54,7 @@ function ToggleFocusInput({ value, onUpdateColumnTitle, inputFontSize = "16px", 
         "& .MuiOutlinedInput-root.Mui-focused": {
           paddingLeft: "10px",
 
-          backgroundColor: (theme) => (theme.palette.mode === "dark" ? "#64656a" : "#9eae8e"),
+          backgroundColor: (theme) => (theme.palette.mode === "dark" ? darkBackground : lightBackground),
           "& fieldset": { borderColor: "#fff" },
         },
         "& .MuiOutlinedInput-input": {

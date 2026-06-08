@@ -169,7 +169,13 @@ function Column({ column }) {
             height: (theme) => theme.kanban.cardHeaderHeight,
           }}
         >
-          <ToggleFocusInput value={column?.title} onUpdateColumnTitle={onUpdateColumnTitle} data-no-dnd={true} />
+          <ToggleFocusInput
+            value={column?.title}
+            textColor="#fff"
+            lightBackground="#9eae8e"
+            onChangedValue={onUpdateColumnTitle}
+            data-no-dnd={true}
+          />
 
           <KeyboardArrowDownIcon
             style={{

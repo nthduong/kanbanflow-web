@@ -18,6 +18,9 @@ import BoardBar from "~/pages/Boards/BoardBar/BoardBar";
 import BoardContent from "~/pages/Boards/BoardContent/BoardContent";
 import PageLoadingSpinner from "~/components/Loading/PageLoadingSpinner";
 import { useNavigate } from "react-router-dom";
+import ActiveCard from "~/components/Modal/ActiveCard";
+
+import { selectCurrentActiveCard } from "~/redux/activeCard/activeCardSlice";
 
 // import { mockData } from "~/apis/mock-data";
 
@@ -25,6 +28,7 @@ function Board() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const board = useSelector(selectCurrentActiveBoard);
+  const currentActiveCard = useSelector(selectCurrentActiveCard);
   const { boardId } = useParams();
 
   useEffect(() => {
@@ -90,6 +94,8 @@ function Board() {
 
   return (
     <Container disableGutters maxWidth={false} sx={{ height: "100vh" }}>
+      {currentActiveCard && <ActiveCard />}
+
       <AppBar />
       <BoardBar board={board} />
       <BoardContent

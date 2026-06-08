@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 
-import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
@@ -19,18 +18,7 @@ import { FIELD_REQUIRED_MESSAGE, singleFileValidator } from "~/utils/validators"
 import FieldErrorAlert from "~/components/Form/FieldErrorAlert";
 import { selectCurrentUser } from "~/redux/user/userSlice";
 import { updateUserAPI } from "~/redux/user/userSlice";
-
-const VisuallyHiddenInput = styled("input")({
-  clip: "rect(0 0 0 0)",
-  clipPath: "inset(50%)",
-  height: 1,
-  overflow: "hidden",
-  position: "absolute",
-  bottom: 0,
-  left: 0,
-  whiteSpace: "nowrap",
-  width: 1,
-});
+import VisuallyHiddenInput from "~/components/Form/VisuallyHiddenInput";
 
 function AccountTab() {
   const dispatch = useDispatch();

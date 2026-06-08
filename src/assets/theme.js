@@ -25,12 +25,18 @@ const theme = extendTheme({
         primary: {
           main: "#718355",
         },
+        text: {
+          primary: "#000",
+        },
       },
     },
     dark: {
       palette: {
         primary: {
           main: "#fff",
+        },
+        text: {
+          primary: "#fff",
         },
       },
     },

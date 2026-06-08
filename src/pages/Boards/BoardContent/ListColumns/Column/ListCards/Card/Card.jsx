@@ -10,8 +10,12 @@ import AttachmentIcon from "@mui/icons-material/Attachment";
 
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { updateCurrentActiveCard } from "~/redux/activeCard/activeCardSlice";
+import { useDispatch } from "react-redux";
 
 function Card({ card }) {
+  const dispatch = useDispatch();
+
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: card._id,
     data: { ...card },
@@ -27,13 +31,19 @@ function Card({ card }) {
     return !!card?.memberIds?.length || !!card?.comments?.length || !!card?.attachments?.length;
   };
 
+  const setActiveCard = () => {
+    dispatch(updateCurrentActiveCard(card));
+  };
+
   return (
     <CardMui
       ref={setNodeRef}
       style={dndkitCartStyle}
+      onClick={setActiveCard}
       {...attributes}
       {...listeners}
       sx={{
+        cursor: "pointer",
         borderRadius: "6px",
         flexShrink: "0",
         opacity: card.FE_PlaceholderCard ? "0" : "1",
