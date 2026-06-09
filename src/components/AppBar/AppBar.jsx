@@ -1,11 +1,8 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import AppsIcon from "@mui/icons-material/Apps";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 import Badge from "@mui/material/Badge";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import Tooltip from "@mui/material/Tooltip";
@@ -16,17 +13,15 @@ import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
 import ViewKanbanIcon from "@mui/icons-material/ViewKanban";
 
+import AutoCompleteSearchBoard from "~/components/AppBar/SearchBoards/AutoCompleteSearchBoard";
 import ModeSelect from "~/components/ModeSelect/ModeSelect";
 import Profile from "~/components/AppBar/Menus/Profile";
 import WorkSpaces from "~/components/AppBar/Menus/Workspaces";
 import Recent from "~/components/AppBar/Menus/Recent";
 import Starred from "~/components/AppBar/Menus/Starred";
 import Templates from "~/components/AppBar/Menus/Templates";
-import logo from "~/assets/img/logo.png";
 
 function AppBar() {
-  const [inputSearch, setInputSearch] = useState("");
-
   return (
     <Box
       sx={{
@@ -86,47 +81,7 @@ function AppBar() {
           gap: 2,
         }}
       >
-        <TextField
-          id="standard-search"
-          label="Search..."
-          type="text"
-          size="small"
-          value={inputSearch}
-          onChange={(e) => setInputSearch(e.target.value)}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon sx={{ color: "#fff" }} />
-              </InputAdornment>
-            ),
-            endAdornment: (
-              <InputAdornment position="end">
-                <CloseIcon
-                  onClick={() => setInputSearch("")}
-                  sx={{
-                    color: inputSearch ? "#fff" : "transparent",
-                    cursor: inputSearch ? "pointer" : "text",
-                  }}
-                  fontSize={"small"}
-                />
-              </InputAdornment>
-            ),
-          }}
-          sx={{
-            display: { xs: "none", md: "flex" },
-            "& label": { color: "#fff" },
-            "& label.Mui-focused": { color: "#fff" },
-            "& input": { color: "#fff" },
-            "& .MuiOutlinedInput-notchedOutline": {
-              borderColor: "#fff",
-            },
-            "& .MuiOutlinedInput-root": {
-              "& fieldset": { borderColor: "#fff" },
-              "&:hover fieldset": { borderColor: "#fff" },
-              "&.Mui-focused fieldset": { borderColor: "#fff" },
-            },
-          }}
-        />
+        <AutoCompleteSearchBoard />
         <ModeSelect />
         <Tooltip title="Notifications">
           <Badge color="warning" variant="dot" sx={{ cursor: "pointer", color: "#fff" }}>

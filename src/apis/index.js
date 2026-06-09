@@ -3,7 +3,6 @@ import authorizedAxiosInstance from "~/utils/authorizedAxios";
 import { API_ROOT } from "~/utils/constants";
 
 // Board APIs
-
 export const createNewBoardAPI = async (data) => {
   const response = await authorizedAxiosInstance.post(`${API_ROOT}/v1/boards`, data);
   return response.data;
@@ -23,6 +22,7 @@ export const moveCardInTheDifferentColumnAPI = async (data) => {
   const response = await authorizedAxiosInstance.put(`${API_ROOT}/v1/boards/supports/moving_card`, data);
   return response.data;
 };
+
 // Column APIs
 export const createNewColumnAPI = async (data) => {
   const response = await authorizedAxiosInstance.post(`${API_ROOT}/v1/columns`, data);
